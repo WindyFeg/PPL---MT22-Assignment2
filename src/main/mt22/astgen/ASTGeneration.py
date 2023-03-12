@@ -6,3 +6,10 @@ from AST import *
 class ASTGeneration(MT22Visitor):
     def visitProgram(self, ctx: MT22Parser.ProgramContext):
         return Program([])
+
+
+
+    # @Atomic type
+    # vartype: AUTO| STRING | BOOLEAN | FLOAT | INTEGER | arraytype ;
+    def visitIntegerType(self, ctx: MT22Parser.IntegerTypeContext):
+        return IntegerType()

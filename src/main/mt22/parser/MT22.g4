@@ -13,6 +13,8 @@ program: decl* mainfunction? decl* EOF;
 
 // ! --------------PARSER RULE--------------
 
+arr: LCB expressionlist? RCB;
+
 vartype: AUTO| STRING | BOOLEAN | FLOAT | INTEGER | arraytype ;
 arithmetricop: MINU | PLUS | MUTI | DIVI | MODU;
 booleanop: NOT | AND | OR;
@@ -50,7 +52,7 @@ expression: operand stringop operand
 
 // ?constant not clear in ass1 
 // ?Add ARR
-constant: STR | BOOL | FLO | INT | ARR;
+constant: STR | BOOL | FLO | INT | arr;
 functioncall: ID LB arguementlist? RB;
 
 indexop: ID indexexpression;
@@ -192,9 +194,7 @@ ID: (LETTER | UNDE) (LETTER | UNDE | DIGIT)*;
 
 
 // *--------Array--------
-fragment ARRTYPE: STR|FLO|INT|BOOL|ID;
-fragment ARRTYPES: ARRTYPE (' ')* COMA (' ')* ARRTYPES | ARRTYPE ;
-ARR: LCB ARRTYPES  RCB;
+
 
 //*--------Seprator--------
 COMA: ',';
