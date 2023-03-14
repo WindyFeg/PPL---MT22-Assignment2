@@ -1,0 +1,4 @@
+main: function void() {
+            x= z::y;
+            hello(funtion());
+            z: array[2] of integer = {};}

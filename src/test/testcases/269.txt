@@ -1,0 +1,5 @@
+foo: function integer() {
+             x: integer = 1;
+            y: integer = 2;
+            return x + y;
+        }

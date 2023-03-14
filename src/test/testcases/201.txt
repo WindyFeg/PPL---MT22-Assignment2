@@ -1,1 +1,3 @@
-delta: integer = 3;
+
+        x: integer = 65;
+        main: function void() {}

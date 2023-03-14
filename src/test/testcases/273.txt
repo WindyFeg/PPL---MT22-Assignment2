@@ -1,0 +1,5 @@
+foo: function float() {
+             x: float = 1.0;
+             y: float = 2.0;
+            return x / y;
+        }

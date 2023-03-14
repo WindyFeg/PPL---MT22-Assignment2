@@ -1,0 +1,4 @@
+main: function void() {
+            do  write("hello");
+            while (n<11);
+            }

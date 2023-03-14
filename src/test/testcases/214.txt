@@ -1,0 +1,4 @@
+main: function void() {
+            x,y: float = 1.334, 1_342.2e+4;
+            n: float = x+y*y-2/x +y%7;
+            }

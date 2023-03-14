@@ -1,0 +1,8 @@
+baz: function float(x: float, y: float) {
+            if (x > y) {
+                return x;
+            }
+            else {
+                return y;
+            }
+        }

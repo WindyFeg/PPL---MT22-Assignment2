@@ -1,1 +1,1 @@
-main: function void () {}
+0_h: string = "boll";

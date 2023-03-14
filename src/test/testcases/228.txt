@@ -1,0 +1,7 @@
+main: function void() {
+            while(funcz(5)!=3){
+                writeln("Hello mother fker");
+                hung3= hung3 +100;
+                continue;break;
+            }
+            }

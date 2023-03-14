@@ -1,0 +1,11 @@
+bar: function void() {
+            if (x > y) {
+                print("x is greater than y");
+            }
+            else if (y > x) {
+                print("y is greater than x");
+            }
+            else {
+                print("x and y are equal");
+            }
+        }

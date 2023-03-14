@@ -33,27 +33,28 @@ class Decl(AST):
 class AtomicType(Type):
     pass
 
-
+#* Done
 class IntegerType(AtomicType):
     def __str__(self):
         return self.__class__.__name__
 
-
+#* Done
 class FloatType(AtomicType):
     def __str__(self):
         return self.__class__.__name__
 
-
+#* Done
 class BooleanType(AtomicType):
     def __str__(self):
         return self.__class__.__name__
 
-
+#* Done
 class StringType(AtomicType):
     def __str__(self):
         return self.__class__.__name__
 
-
+# !HERE
+#* Done
 class ArrayType(Type):
     def __init__(self, dimensions: List[int], typ: AtomicType):
         self.dimensions = dimensions
@@ -97,7 +98,7 @@ class UnExpr(Expr):
     def __str__(self):
         return "UnExpr({}, {})".format(self.op, str(self.val))
 
-
+#* Done
 class Id(LHS):
     def __init__(self, name: str):
         self.name = name
@@ -114,7 +115,7 @@ class ArrayCell(LHS):
     def __str__(self):
         return "ArrayCell({}, [{}])".format(self.name, ", ".join([str(expr) for expr in self.cell]))
 
-
+#* Done
 class IntegerLit(Expr):
     def __init__(self, val: int):
         self.val = val
@@ -122,7 +123,7 @@ class IntegerLit(Expr):
     def __str__(self):
         return "IntegerLit({})".format(self.val)
 
-
+#* Done
 class FloatLit(Expr):
     def __init__(self, val: float):
         self.val = val
@@ -135,7 +136,7 @@ class StringLit(Expr):
     def __init__(self, val: str):
         self.val = val
 
-
+#* Done
 class BooleanLit(Expr):
     def __init__(self, val: bool):
         self.val = val
@@ -248,7 +249,7 @@ class CallStmt(Stmt):
 
 # Declarations
 
-
+# @Function, Variable, Parameter declare
 class VarDecl(Decl):
     def __init__(self, name: str, typ: Type, init: Expr or None = None):
         self.name = name
@@ -258,7 +259,7 @@ class VarDecl(Decl):
     def __str__(self):
         return "VarDecl({}, {}{})".format(self.name, str(self.typ), ", " + str(self.init) if self.init else "")
 
-
+#* Done
 class ParamDecl(Decl):
     def __init__(self, name: str, typ: Type, out: bool = False, inherit: bool = False):
         self.name = name
@@ -269,7 +270,7 @@ class ParamDecl(Decl):
     def __str__(self):
         return "{}{}Param({}, {})".format("Inherit" if self.inherit else "", "Out" if self.out else "", self.name, str(self.typ))
 
-
+#* Done
 class FuncDecl(Decl):
     def __init__(self, name: str, return_type: Type, params: List[ParamDecl], inherit: str or None, body: BlockStmt):
         self.name = name
@@ -283,7 +284,7 @@ class FuncDecl(Decl):
 
 # Program
 
-
+#* Done
 class Program(AST):
     def __init__(self, decls: List[Decl]):
         self.decls = decls

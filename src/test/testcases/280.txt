@@ -1,0 +1,9 @@
+
+             x: array [2] of integer ;
+            function main(): integer;
+            begin
+                writeln(x[0][1]);
+                writeln(x[1][2]);
+                return 0;
+            end
+        

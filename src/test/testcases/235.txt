@@ -1,0 +1,1 @@
+main: function void() { foo(3+x, 4.0/y) }

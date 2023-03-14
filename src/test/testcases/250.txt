@@ -1,0 +1,1 @@
+sub: function integer (a: integer, b: integer) inherit add {}

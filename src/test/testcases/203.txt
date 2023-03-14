@@ -1,1 +1,2 @@
-a, b, c, d: integer = 3, 4, 6;
+ z: string = "bool" ; z: integer = 123_3_3;
+        main: function void() {}

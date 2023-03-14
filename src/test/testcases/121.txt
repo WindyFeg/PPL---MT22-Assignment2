@@ -1,0 +1,2 @@
+"The first is a close string"
+"This is a unclose string

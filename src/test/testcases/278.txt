@@ -1,0 +1,7 @@
+foo: function integer(x: integer) {
+            return x * x;
+        }
+
+        bar: function integer(x: integer) {
+            return foo(x) + foo(x + 1);
+        }

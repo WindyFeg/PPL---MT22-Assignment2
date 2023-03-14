@@ -1,0 +1,3 @@
+foo: function boolean(x: integer, y: integer) {
+            id= break;
+        }

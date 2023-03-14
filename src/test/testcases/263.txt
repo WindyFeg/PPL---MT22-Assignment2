@@ -1,0 +1,6 @@
+foo: function boolean(x: integer, y: array [2] of float) {
+        for (i = 0, i < x,  i + 1) {
+            y[i] = i * 2.0;
+        }
+        return true;
+    }

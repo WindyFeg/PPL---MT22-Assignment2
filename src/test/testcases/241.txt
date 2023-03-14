@@ -1,0 +1,4 @@
+main: function void() {
+            a[1+2]=b[3-3];
+            : integer;
+            }

@@ -1,0 +1,4 @@
+main: function void() {
+        var a: real;
+        a = 3.14159265359;
+        }

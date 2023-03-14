@@ -1,0 +1,3 @@
+foo: function boolean(x: boolean) {
+            return !x;
+        }

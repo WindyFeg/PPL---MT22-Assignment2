@@ -1,0 +1,3 @@
+main: function auto() {
+            z[1,3]= "hello" + "world";
+            }

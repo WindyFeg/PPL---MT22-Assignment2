@@ -1,0 +1,1 @@
+main: function void() { a= a > b || c < d && e >= f;}

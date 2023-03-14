@@ -9,21 +9,23 @@ options{
 }
 
 // main function is unique => mean appear only once or none
-program: decl* mainfunction? decl* EOF;
+program: decls EOF;
+// program: expression EOF;
 
 // ! --------------PARSER RULE--------------
 
 arr: LCB expressionlist? RCB;
 
-vartype: AUTO| STRING | BOOLEAN | FLOAT | INTEGER | arraytype ;
+vartype: atomictype | arraytype ;
+atomictype:AUTO| STRING | BOOLEAN | FLOAT | INTEGER ;
 arithmetricop: MINU | PLUS | MUTI | DIVI | MODU;
 booleanop: NOT | AND | OR;
 stringop: SCOPE;
 relationalop: EQUL | NEQ | LESS | GREA | LOEQ | GOEQ;
-demention: INT COMA demention | INT;
+dimension: INT COMA dimension | INT;
 
 // ?testing expression
-operator: arithmetricop| booleanop | stringop | relationalop | indexop;
+operator: arithmetricop| booleanop | stringop | relationalop | indexexpression;
 // *Two operation type
 // *Two expression (condition expression & typical expression)
 operand: constant | ID | operator | functioncall | subexpression ;
@@ -31,16 +33,16 @@ condeoperand:constant | ID | operator | functioncall | subcondexpression;
 
 
 subcondexpression: LB condexpression RB ;
-condexpression: condeoperand relationalop condeoperand
-		|condexpression (AND|OR) condeoperand
-		|NOT condeoperand
-		|condeoperand
-		;
+condexpression: condexpression relationalop condexpression|condexpression_logic;
+condexpression_logic:condexpression_logic (AND|OR) condex_unary | condex_unary;
+condex_unary:NOT condeoperand
+		|condeoperand;		
 
 
+//* Expression
 subexpression:LB expression RB ;
-expression: operand stringop operand
-		|operand relationalop operand
+expression: expression stringop expression
+		|expression relationalop expression
 		|expression (AND|OR) operand
 		|expression (PLUS|MINU) operand 
 		|expression (MUTI|DIVI|MODU) operand
@@ -50,12 +52,10 @@ expression: operand stringop operand
 		|operand
 		;
 
-// ?constant not clear in ass1 
-// ?Add ARR
 constant: STR | BOOL | FLO | INT | arr;
 functioncall: ID LB arguementlist? RB;
 
-indexop: ID indexexpression;
+indexexpression: ID indexop;
 
 // ?testing expression
 
@@ -63,19 +63,19 @@ indexop: ID indexexpression;
 // *--------part of things--------
 parameter: INHERIT? OUT? ID COL vartype;
 
-// indexop[]
-indexexpression:LSB expressionlist RSB;
+// indexop []
+indexop:LSB expressionlist RSB;
 
 //? arguement add-on
 arguement: expression; //TODO arguement
-functionmainprot:MAIN COL FUNCTION VOID LB parameterlist? RB;
+functionmainprot:MAIN COL FUNCTION (VOID|AUTO) LB parameterlist? RB (INHERIT ID)?;
 functionprot: ID COL FUNCTION (VOID|vartype) LB parameterlist? RB (INHERIT ID)?;
 // ?add-on not found in mt22
 functionbody: blockstatement;
 
 // *Statement
 scalarvar: ID;
-lhs: scalarvar | indexop;
+lhs: scalarvar | indexexpression;
 
 statement: assignstatement 
 | ifstatement 
@@ -123,19 +123,21 @@ parameterlist: parameter COMA parameterlist| parameter;
 arguementlist: arguement COMA arguementlist | arguement;
 statementlist: statement SEM statementlist | statement SEM?;
 // *--------Declare--------
-variabledecl: variabledecls SEM;
-variabledecls: (ID COMA variabledecls COMA expression
-| ID COL vartype EQU expression
-| idlist COL vartype);
+variabledecl: (variabledeclassign|variabledecls) SEM;
+variabledeclassign: ID COMA variabledeclassign COMA expression
+| ID COL vartype EQU expression;
+variabledecls:idlist COL vartype;
+
 functiondecl: functionprot functionbody;
 
 // ?unique function, whose name is main without any parameter and return nothing (type void).
 mainfunction: functionmainprot functionbody;
 // ?Is arrray type here?
-arraytype:ARRAY (LSB demention RSB OF vartype)?;
+arraytype:ARRAY (LSB dimension RSB OF atomictype)?;
 
 // * MAIN PROGRAM
-decl: functiondecl |variabledecls SEM | expressionlist | statementlist ;
+decls: decl decls | decl;
+decl: functiondecl |variabledecl | statementlist |mainfunction;
 // decl:arraydecl;
 // !--------------LEXER RULE----------------
 
@@ -184,7 +186,7 @@ FLO:  ((POSINT | ZERO)+ DOT DECIMAL EXPONENT?
 		| DOT DECIMAL EXPONENT){self.text = self.text.replace('_','')};
 
 // *--------Integer--------
-fragment POSINT: [1-9] (UNDE DIGIT | DIGIT)*;
+fragment POSINT: [1-9] (UNDE+ DIGIT | DIGIT)*;
 INT: (POSINT | ZERO){self.text = self.text.replace('_','')} ;
 
 // *--------Identifier--------
@@ -211,7 +213,7 @@ EQU:'=';
 
 // *--------Tokens--------
 DB: '"';
-ZERO: '0';
+fragment ZERO: '0';
 UNDE: '_';
 PLUS: '+';
 MINU: '-';

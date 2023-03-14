@@ -1,0 +1,6 @@
+main: function void() {
+            while(hung3 == 1000){
+                writeln("Hello mother fker");
+                hung3= hung3 +100;
+            }
+            }
