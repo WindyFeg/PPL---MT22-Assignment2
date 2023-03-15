@@ -95,13 +95,9 @@ class ASTGeneration(MT22Visitor):
     #% variabledeclassign: ID COMA variabledeclassign COMA expression
     #% | ID COL vartype EQU expression;
     def visitVariabledeclassign(self, ctx: MT22Parser.variabledeclassign):
-        # if ctx.vartype():
-        #     return (ctx.ID().getText(), ctx.expression())
-        # IdNExp = (ctx.ID().getText(), ctx.expression())
-        # return IdNExp.append(self.visit(ctx.variabledeclassign()))
-        return [("a", IntegerLit(1)), ("b", IntegerLit(2)), ("c", IntegerLit(3))]
-    
-    
+        if ctx.vartype():
+            return [(ctx.ID().getText(), ctx.expression())]
+        return [(ctx.ID().getText(), ctx.expression())] + self.visit(ctx.variabledeclassign())
     
     #@ 3. LIST
     #@ 3.1. Parameter list
@@ -119,6 +115,7 @@ class ASTGeneration(MT22Visitor):
             True if ctx.OUT() else False,
             True if ctx.INHERIT() else False
         )
+    
     #@ 3.2. ID list
     #% idlist: ID  COMA idlist | ID;
     def visitIdlist(self, ctx: MT22Parser.idlist):
@@ -126,13 +123,114 @@ class ASTGeneration(MT22Visitor):
             return [ctx.ID().getText()] + self.visit(ctx.idlist())
         return [ctx.ID().getText()]
     
+    #@ 3.3. Expression list
+    #% expressionlist: expression COMA expressionlist| expression SEM?;
+    def visitExpressionlist(self, ctx: MT22Parser.expressionlist):
+        if ctx.expressionlist():
+            return [self.visit(ctx.expression())] + self.visit(ctx.expressionlist())
+        return [self.visit(ctx.expression())]
+
     #@ 4. STATEMENT
 
     #@ 5. EXPRESSION
+    #%  stringop: SCOPE;
+    def visitStringop(self, ctx: MT22Parser.stringop):
+        return str(ctx.SCOPE().getText())
+    
+    #% relationalop: EQUL | NEQ | LESS | GREA | LOEQ | GOEQ;
+    def visitRelationalop(self, ctx: MT22Parser.relationalop):
+        return str(ctx.getText())
+
+    #% indexexpression: ID indexop;
+    def visitIndexexpression(self, ctx: MT22Parser.indexexpression):
+        return ArrayCell(
+            Id(ctx.ID().getText()),
+            #! return Expr list
+            self.visit(ctx.indexop())
+        )
+    
+    #%indexop:LSB expressionlist RSB;
+    def visitIndexop(self, ctx: MT22Parser.indexop):
+        return self.visit(ctx.expressionlist())
+
+    #% operand: constant | functioncall | ID |subexpression ;
+
+    #% constant: STR | BOOL | FLO | INT | arr;
+
     #@ 5.1. Binary expression
+    #% expression: expression_relat stringop expression_relat | expression_relat;
     def visitExpression(self, ctx: MT22Parser.expression):
-        return IntegerLit(1)
-    # ! not done
+        if ctx.stringop(): 
+            return BinExpr(
+                self.visit(ctx.stringop()),
+                self.visit(ctx.expression_relat(0)),
+                self.visit(ctx.expression_relat(1))
+            )
+        return self.visit(ctx.expression_relat())
+    
+    #%expression_relat: expression_logic relationalop expression_logic |expression_logic ;
+    def visitExpression_relat(self, ctx: MT22Parser.expression_relat):
+        if ctx.relationalop():
+            return BinExpr(
+                self.visit(ctx.relationalop()),
+                self.visit(ctx.expression_logic(0)),
+                self.visit(ctx.expression_logic(1))
+            )
+        return self.visit(ctx.expression_logic())
+    
+    #% expression_logic: expression_logic (AND|OR) expression_bina1|expression_bina1;
+    def visitExpression_logic(self, ctx: MT22Parser.expression_logic):
+        if ctx.AND() or ctx.OR():
+            return BinExpr(
+                str(ctx.getChild(1).getText()),
+                self.visit(ctx.expression_logic()),
+                self.visit(ctx.expression_bina1(0))
+            )
+        return self.visit(ctx.expression_bina1())
+
+    #% expression_bina1: expression_bina1 (PLUS|MINU) expression_bina2|expression_bina2;
+    def visitExpression_bina1(self, ctx: MT22Parser.expression_bina1):
+        if ctx.PLUS() or ctx.MINU():
+            return BinExpr(
+                str(ctx.getChild(1).getText()),
+                self.visit(ctx.expression_bina1()),
+                self.visit(ctx.expression_bina2(0))
+            )
+        return self.visit(ctx.expression_bina2())
+
+    #%expression_bina2: expression_bina2 (MUTI|DIVI|MODU) expression_unary | expression_unary;
+    def visitExpression_bina2(self, ctx: MT22Parser.expression_bina2):
+        if ctx.MUTI() or ctx.DIVI() or ctx.MODU():
+            return BinExpr(
+                str(ctx.getChild(1).getText()),
+                self.visit(ctx.expression_bina2()),
+                self.visit(ctx.expression_unary(0))
+            )
+        return self.visit(ctx.expression_unary())
+    
+    #@ 5.2. Unary expression
+    #% expression_unary: NOT operand
+    #% | MINU operand
+    #% | indexexpression
+    #% | operand;
+    def visitExpression_unary(self, ctx: MT22Parser.expression_unary):
+        if ctx.NOT():
+            return UnExpr(
+                str(ctx.NOT().getText()),
+                self.visit(ctx.operand())
+            )
+        elif ctx.MINU():
+            return UnExpr(
+                str(ctx.MINU().getText()),
+                self.visit(ctx.operand())
+            )
+        # a[1,2,3]
+        elif ctx.indexexpression():
+            #! return arrayCell
+            return self.visit(ctx.indexexpression())
+        else:
+            #! return Expr type
+            return self.visit(ctx.operand())
 
     #@ TYPE & ARRAY
     #% vartype: atomictype | arraytype ;

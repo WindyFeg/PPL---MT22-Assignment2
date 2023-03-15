@@ -28,8 +28,8 @@ dimension: INT COMA dimension | INT;
 operator: arithmetricop| booleanop | stringop | relationalop | indexexpression;
 // *Two operation type
 // *Two expression (condition expression & typical expression)
-operand: constant | ID | operator | functioncall | subexpression ;
-condeoperand:constant | ID | operator | functioncall | subcondexpression;
+operand: constant | functioncall | ID |subexpression ;
+condeoperand:constant | functioncall | ID | subcondexpression;
 
 
 subcondexpression: LB condexpression RB ;
@@ -41,16 +41,17 @@ condex_unary:NOT condeoperand
 
 //* Expression
 subexpression:LB expression RB ;
-expression: expression stringop expression
-		|expression relationalop expression
-		|expression (AND|OR) operand
-		|expression (PLUS|MINU) operand 
-		|expression (MUTI|DIVI|MODU) operand
-		|NOT operand
-		|MINU operand 
-		|indexexpression
-		|operand
-		;
+
+expression: expression_relat stringop expression_relat | expression_relat;
+expression_relat: expression_logic relationalop expression_logic |expression_logic ;
+expression_logic: expression_logic (AND|OR) expression_bina1|expression_bina1;
+expression_bina1: expression_bina1 (PLUS|MINU) expression_bina2|expression_bina2;
+expression_bina2: expression_bina2 (MUTI|DIVI|MODU) expression_unary | expression_unary;
+expression_unary: NOT operand
+| MINU operand
+| indexexpression
+| operand
+;
 
 constant: STR | BOOL | FLO | INT | arr;
 functioncall: ID LB arguementlist? RB;

@@ -386,9 +386,10 @@ class ParserSuite(unittest.TestCase):
             a > b || c < d && e >= f}"""
         expect = "Error on line 2 col 14: >"
         self.assertTrue(TestParser.test(input, expect, 259))
+    #! change
     def test_rand60(self):
         input = """main: function void() { a= a > b || c < d && e >= f;}"""
-        expect = "successful"
+        expect = "Error on line 1 col 38: <"
         self.assertTrue(TestParser.test(input, expect, 260))
     def test_rand61(self):
         input = """main: function void() {a= a && ;}"""

@@ -99,6 +99,31 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MT22Parser#expression_relat.
+    def visitExpression_relat(self, ctx:MT22Parser.Expression_relatContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#expression_logic.
+    def visitExpression_logic(self, ctx:MT22Parser.Expression_logicContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#expression_bina1.
+    def visitExpression_bina1(self, ctx:MT22Parser.Expression_bina1Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#expression_bina2.
+    def visitExpression_bina2(self, ctx:MT22Parser.Expression_bina2Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#expression_unary.
+    def visitExpression_unary(self, ctx:MT22Parser.Expression_unaryContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MT22Parser#constant.
     def visitConstant(self, ctx:MT22Parser.ConstantContext):
         return self.visitChildren(ctx)
