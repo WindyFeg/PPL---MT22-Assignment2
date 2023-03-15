@@ -1,3 +1,5 @@
 Program([
-	VarDecl(('x', <MT22Parser.MT22Parser.ExpressionContext object at 0x0000012CDE7C57D0>), ('y', <MT22Parser.MT22Parser.ExpressionContext object at 0x0000012CDE7C4150>))
+	VarDecl(x, IntegerType, IntegerLit(1))
+	VarDecl(y, IntegerType, IntegerLit(2))
+	VarDecl(z, IntegerType, IntegerLit(3))
 ])

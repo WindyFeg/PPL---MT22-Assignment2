@@ -33,22 +33,22 @@ class ASTGeneration(MT22Visitor):
     #@ 2.1.1 Main function
     #% mainfunction: functionmainprot functionbody;
     def visitMainfunction(self, ctx: MT22Parser.mainfunction):
-        mf_name, mf_return_type, mf_params, mf_inherit = self.visit(ctx.functionmainprot())
-        return FuncDecl(
-            mf_name,
-            mf_return_type,
-            mf_params,
-            mf_inherit,
+        mf = self.visit(ctx.functionmainprot())
+        return [FuncDecl(
+            mf[0],
+            mf[1],
+            mf[2],
+            mf[3],
             self.visit(ctx.functionbody()) # BlockStmt
-        )
+        )]
     
     #% functionmainprot:MAIN COL FUNCTION (VOID|AUTO) LB parameterlist? RB (INHERIT ID)?;
     def visitFunctionmainprot(self, ctx: MT22Parser.functionmainprot):
         mf_name = ctx.MAIN().getText()
-        mf_return_type = ctx.VOID().getText() if ctx.VOID() else self.visit(ctx.vartype())
-        mf_params = self.visit(ctx.parameterlist())
-        mf_inherit = self.visit(ctx.Id())
-        return mf_name, mf_return_type, mf_params, mf_inherit
+        mf_return_type = VoidType() if ctx.VOID() else self.visit(ctx.vartype())
+        mf_params = self.visit(ctx.parameterlist()) if ctx.parameterlist() else []
+        mf_inherit = self.visit(ctx.Id()) if ctx.ID() else None
+        return (mf_name, mf_return_type, mf_params, mf_inherit)
     
     #@ 2.1.2 Normal function
     #% functiondecl: functionprot functionbody;
@@ -70,20 +70,24 @@ class ASTGeneration(MT22Visitor):
         f_inherit = self.visit(ctx.Id())
         return f_name, f_return_type, f_params, f_inherit
 
+    #@ 2.1.3 Function body
+    #% functionbody: blockstatement;
+    def visitFunctionbody(self, ctx: MT22Parser.functionbody):
+        return self.visit(ctx.blockstatement())
+
     #@ 2.2 Variable declare
     #%variabledecl: (variabledeclassign|variabledecls) SEM;
     def visitVariabledecl(self, ctx: MT22Parser.variabledecl):
         if ctx.variabledeclassign():
-            # [("a", 3), ("b", 2), ("c", 1)]
+            # [("a", 3), ("b", 2), ("c", 1), type]
+            ListTuple = self.visit(ctx.variabledeclassign())
+            Type = ListTuple.pop()
             idList, expList = [], []
-            for tup in [self.visit(ctx.variabledeclassign())]:
+            for tup in ListTuple:
                 idList.append(tup[0])
                 expList.append(tup[1])
-            return list(map(
-                lambda id, exp: VarDecl(id, exp),
-                idList,
-                expList[::-1]
-            ))
+            ReverseExp = zip(idList, expList[::-1])
+            return [VarDecl(var[0], Type, var[1]) for var in ReverseExp]
         return self.visit(ctx.variabledecls())
 
     #% variabledecls:idlist COL vartype;
@@ -96,13 +100,14 @@ class ASTGeneration(MT22Visitor):
     #% | ID COL vartype EQU expression;
     def visitVariabledeclassign(self, ctx: MT22Parser.variabledeclassign):
         if ctx.vartype():
-            return [(ctx.ID().getText(), ctx.expression())]
-        return [(ctx.ID().getText(), ctx.expression())] + self.visit(ctx.variabledeclassign())
+            return [(ctx.ID().getText(),self.visit(ctx.expression()) ) , self.visit(ctx.vartype())]
+        return [(ctx.ID().getText(), self.visit(ctx.expression()))] + self.visit(ctx.variabledeclassign())
     
     #@ 3. LIST
     #@ 3.1. Parameter list
     #% parameterlist: parameter COMA parameterlist| parameter;
     def visitParameterlist(self, ctx: MT22Parser.parameterlist):
+        #! return a list of parameter
         if ctx.parameterlist():
             return [self.visit(ctx.parameter())] + self.visit(ctx.parameterlist())
         return [self.visit(ctx.parameter())]
@@ -130,7 +135,65 @@ class ASTGeneration(MT22Visitor):
             return [self.visit(ctx.expression())] + self.visit(ctx.expressionlist())
         return [self.visit(ctx.expression())]
 
+    #@ 3.4. Statement list
+    #% statementlist: statement SEM statementlist | statement SEM?;
+    def visitStatementlist(self, ctx: MT22Parser.statementlist):
+        if ctx.statementlist():
+            return [self.visit(ctx.statement())] + self.visit(ctx.statementlist())
+        return [self.visit(ctx.statement())]
+
     #@ 4. STATEMENT
+    #%statement: assignstatement 
+    #% | ifstatement 
+    #% | forstatement 
+    #% | whilestatement
+    #% | dowhilestatement
+    #% | breakstatement
+    #% | continuestatement
+    #% | returnstatement
+    #% | callstatement
+    #% | blockstatement
+    #% ;
+    def visitStatement(self, ctx: MT22Parser.statement):
+        if ctx.assignstatement():
+            return self.visit(ctx.assignstatement())
+        elif ctx.ifstatement():
+            return self.visit(ctx.ifstatement())
+        elif ctx.forstatement():
+            return self.visit(ctx.forstatement())
+        elif ctx.whilestatement():
+            return self.visit(ctx.whilestatement())
+        elif ctx.dowhilestatement():
+            return self.visit(ctx.dowhilestatement())
+        elif ctx.breakstatement():
+            return self.visit(ctx.breakstatement())
+        elif ctx.continuestatement():
+            return self.visit(ctx.continuestatement())
+        elif ctx.returnstatement():
+            return self.visit(ctx.returnstatement())
+        elif ctx.callstatement():
+            return self.visit(ctx.callstatement())
+        elif ctx.blockstatement():
+            return self.visit(ctx.blockstatement())
+        return None
+    #@ 4.1. Assign statement
+    #% assignstatement: lhs EQU expression SEM;
+
+    #% lhs: scalarvar | indexexpression;
+    #@ 4.2. If statement
+    #@ 4.3. For statement
+    #@ 4.4. While statement
+    #@ 4.5. Do-while statement
+    #@ 4.6. Break statement
+    #@ 4.7. Continue statement
+    #@ 4.8. Return statement
+    #@ 4.9. Call statement
+    #@ 4.10. Block statement
+    #% blockstatement: LCB (statementlist|variabledecl)*? RCB;
+    def visitBlockstatement(self, ctx: MT22Parser.blockstatement):
+        if ctx.variabledecl() or ctx.statementlist() :
+            return None #TODO
+        return BlockStmt([])
 
     #@ 5. EXPRESSION
     #%  stringop: SCOPE;
@@ -154,8 +217,26 @@ class ASTGeneration(MT22Visitor):
         return self.visit(ctx.expressionlist())
 
     #% operand: constant | functioncall | ID |subexpression ;
+    def visitOperand(self, ctx: MT22Parser.operand):
+        if ctx.constant():
+            return self.visit(ctx.constant())
+        if ctx.functioncall():
+            return self.visit(ctx.functioncall()) #!
+        if ctx.ID():
+            return Id(ctx.ID().getText())
+        return self.visit(ctx.subexpression()) #!
 
     #% constant: STR | BOOL | FLO | INT | arr;
+    def visitConstant(self, ctx: MT22Parser.constant):
+        if ctx.STR():
+            return StringLit(ctx.STR().getText())
+        if ctx.BOOL():
+            return BooleanLit(True if ctx.BOOL().getText() == "true" else False)
+        if ctx.FLO():
+            return FloatLit(float(ctx.FLO().getText()))
+        if ctx.INT():
+            return IntegerLit(int(ctx.INT().getText()))
+        return self.visit(ctx.arr())
 
     #@ 5.1. Binary expression
     #% expression: expression_relat stringop expression_relat | expression_relat;
@@ -166,9 +247,9 @@ class ASTGeneration(MT22Visitor):
                 self.visit(ctx.expression_relat(0)),
                 self.visit(ctx.expression_relat(1))
             )
-        return self.visit(ctx.expression_relat())
-    
-    #%expression_relat: expression_logic relationalop expression_logic |expression_logic ;
+        return self.visit(ctx.expression_relat(0))
+
+    #% expression_relat: expression_logic relationalop expression_logic |expression_logic ;
     def visitExpression_relat(self, ctx: MT22Parser.expression_relat):
         if ctx.relationalop():
             return BinExpr(
@@ -176,7 +257,7 @@ class ASTGeneration(MT22Visitor):
                 self.visit(ctx.expression_logic(0)),
                 self.visit(ctx.expression_logic(1))
             )
-        return self.visit(ctx.expression_logic())
+        return self.visit(ctx.expression_logic(0))
     
     #% expression_logic: expression_logic (AND|OR) expression_bina1|expression_bina1;
     def visitExpression_logic(self, ctx: MT22Parser.expression_logic):
