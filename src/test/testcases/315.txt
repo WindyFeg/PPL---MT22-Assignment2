@@ -1,0 +1,1 @@
+result = funct(passid, 12, true, "string gi foo", 13.34);

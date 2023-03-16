@@ -93,6 +93,7 @@ forhead:FOR LB scalarvar EQU expression COMA expression COMA expression RB;
 forstatement: forhead statement;
 
 whilecondition:WHILE LB expression RB;
+
 whilestatement:whilecondition statement;
 
 dowhilestatement: DO blockstatement whilecondition SEM;

@@ -1,0 +1,3 @@
+Program([
+	DoWhileStmt(BooleanLit(True), BlockStmt([BreakStmt(), VarDecl(int, IntegerType)]))
+])

@@ -1,0 +1,1 @@
+result = funct(12) + otherFun(12) + 23;

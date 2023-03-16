@@ -66,7 +66,7 @@ class ASTGeneration(MT22Visitor):
     def visitFunctionprot(self, ctx: MT22Parser.functionprot):
         f_name = ctx.ID(0).getText()
         f_return_type = VoidType() if ctx.VOID() else self.visit(ctx.vartype()) 
-        f_params = self.visit(ctx.parameterlist())
+        f_params = self.visit(ctx.parameterlist()) if ctx.parameterlist() else []
         f_inherit = ctx.ID(1).getText() if ctx.ID(1) else None
         return f_name, f_return_type, f_params, f_inherit
 
@@ -298,15 +298,16 @@ class ASTGeneration(MT22Visitor):
         if ctx.constant():
             return self.visit(ctx.constant())
         if ctx.functioncall():
-            return self.visit(ctx.functioncall()) #!
+            return self.visit(ctx.functioncall())
         if ctx.ID():
             return Id(ctx.ID().getText())
-        return self.visit(ctx.subexpression()) #!
+        return self.visit(ctx.subexpression())
 
     #% constant: STR | BOOL | FLO | INT | arr;
     def visitConstant(self, ctx: MT22Parser.constant):
         if ctx.STR():
-            return StringLit(ctx.STR().getText())
+            print(str(ctx.STR().getText()))
+            return StringLit(str(ctx.STR().getText()))
         elif ctx.BOOL():
             return BooleanLit(True if ctx.BOOL().getText() == "true" else False)
         elif ctx.FLO():
@@ -314,6 +315,10 @@ class ASTGeneration(MT22Visitor):
         elif ctx.INT():
             return IntegerLit(int(ctx.INT().getText()))
         return self.visit(ctx.arr())
+
+    #% subexpression:LB expression RB ;
+    def visitSubexpression(self, ctx: MT22Parser.subexpression):
+        return self.visit(ctx.expression())
 
     #@ 5.1. Binary expression
     #% expression: expression_relat stringop expression_relat | expression_relat;
@@ -362,7 +367,7 @@ class ASTGeneration(MT22Visitor):
             return BinExpr(
                 str(ctx.getChild(1).getText()),
                 self.visit(ctx.expression_bina2()),
-                self.visit(ctx.expression_unary(0))
+                self.visit(ctx.expression_unary())
             )
         return self.visit(ctx.expression_unary())
     
@@ -386,9 +391,10 @@ class ASTGeneration(MT22Visitor):
         elif ctx.indexexpression():
             #! return arrayCell
             return self.visit(ctx.indexexpression())
-        else:
+        elif ctx.operand():
             #! return Expr type
             return self.visit(ctx.operand())
+        return None
 
     #@ TYPE & ARRAY
     #% vartype: atomictype | arraytype ;
@@ -406,8 +412,8 @@ class ASTGeneration(MT22Visitor):
     #% dimension: INT COMA dimension | INT;
     def visitDimension(self, ctx: MT22Parser.dimension):
         if ctx.dimension():
-            return [self.visit(ctx.INT(0))] + self.visit(ctx.dimension())
-        return [self.visit(ctx.INT(0))]
+            return [ctx.INT().getText()] + self.visit(ctx.dimension())
+        return [ctx.INT().getText()]
 
     #% atomictype: AUTO| STRING | BOOLEAN | FLOAT | INTEGER ;
     def visitAtomictype(self, ctx: MT22Parser.atomictype):
@@ -421,29 +427,27 @@ class ASTGeneration(MT22Visitor):
             return FloatType()
     
     #@ Type
-
-
     # @ ID & LITERAL
     # just .getText() and set it type
     #% ID: (LETTER | UNDE) (LETTER | UNDE | DIGIT)*;
-    def visitId(self, ctx: MT22Parser.ID):
-        return Id(str(ctx.getText()))
+    # def visitId(self, ctx: MT22Parser.ID):
+    #     return Id(str(ctx.getText()))
 
     #% INT: (POSINT | ZERO){self.text = self.text.replace('_','')} ;
-    def visitInt(self, ctx: MT22Parser.INT):
-        return IntegerLit(int(str(ctx.getText())))
+    # def visitInt(self, ctx: MT22Parser.INT):
+    #     return IntegerLit(int(ctx.getText()))
 
     #% BOOL: FALSE | TRUE;
-    def visitBool(self, ctx: MT22Parser.BOOL):
-        return BooleanLit(True if ctx.TRUE() else False)
+    # def visitBool(self, ctx: MT22Parser.BOOL):
+    #     return BooleanLit(True if ctx.TRUE() else False)
     
     #% FLO:  ((POSINT | ZERO)+ DOT DECIMAL EXPONENT?
 	#% | (POSINT | ZERO)+ DOT? EXPONENT
 	#% | DOT DECIMAL EXPONENT){self.text = self.text.replace('_','')};
-    def visitFlo(self, ctx: MT22Parser.FLO):
-        return FloatLit(float(str(ctx.getText())))
+    # def visitFlo(self, ctx: MT22Parser.FLO):
+    #     return FloatLit(float(str(ctx.getText())))
     
     #% STR: (DB STR_CHAR*  DB) {self.text = self.text[1:-1]};
-    def visitStr(self, ctx: MT22Parser.STR):
-        return StringLit(str(ctx.getText()))
+    # def visitStr(self, ctx: MT22Parser.STR):
+    #     return StringLit(str(ctx.getText()))
 

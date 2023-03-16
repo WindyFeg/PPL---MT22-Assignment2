@@ -1,0 +1,4 @@
+height : function float (inherit out someshitvalue : integer) {
+    if (_height == 0) return 1;
+    return height(someshitvalue - 1);
+}

@@ -1,0 +1,6 @@
+x: array [2] of integer ;
+main :function void(){
+writeln(x[0]);
+writeln(x[x[0]]);
+return 0;
+}

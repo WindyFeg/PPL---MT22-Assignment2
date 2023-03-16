@@ -1,0 +1,5 @@
+Program([
+	VarDecl(x, ArrayType([2345, 4, 2, 5], IntegerType))
+	VarDecl(y, ArrayType([2345, 4, 2, 5], IntegerType))
+	VarDecl(z, ArrayType([2345, 4, 2, 5], IntegerType))
+])

@@ -1,0 +1,3 @@
+Program([
+	AssignStmt(Id(test), BinExpr(*, BinExpr(+, Id(a), IntegerLit(13)), BinExpr(*, IntegerLit(24), Id(x))))
+])

@@ -1,0 +1,3 @@
+Program([
+	FuncDecl(fooooooo, VoidType, [InheritParam(babyloon, BooleanType)], mainn, BlockStmt([VarDecl(q, BooleanType, IntegerLit(1)), VarDecl(w, BooleanType, IntegerLit(2)), VarDecl(e, BooleanType, IntegerLit(3)), VarDecl(r, BooleanType, IntegerLit(4)), VarDecl(r, BooleanType, IntegerLit(5)), VarDecl(ty, BooleanType, IntegerLit(6)), VarDecl(r, BooleanType, IntegerLit(7)), VarDecl(y, BooleanType, IntegerLit(8)), VarDecl(e, BooleanType, IntegerLit(9)), AssignStmt(Id(q), BinExpr(-, BinExpr(+, Id(w), Id(e)), Id(f))), ReturnStmt(BinExpr(||, BooleanLit(False), Id(q)))]))
+])

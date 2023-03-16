@@ -1,0 +1,1 @@
+x,y,z: array [2_34_5,4,2,5] of integer;

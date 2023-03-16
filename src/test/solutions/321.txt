@@ -1,0 +1,3 @@
+Program([
+	IfStmt(BinExpr(<=, CallStmt(var, ), IntegerLit(0)), ReturnStmt(BinExpr(+, CallStmt(var, ), IntegerLit(7))))
+])

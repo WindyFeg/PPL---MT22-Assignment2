@@ -1,0 +1,3 @@
+Program([
+	FuncDecl(height, FloatType, [InheritOutParam(someshitvalue, IntegerType)], None, BlockStmt([IfStmt(BinExpr(==, Id(_height), IntegerLit(0)), ReturnStmt(IntegerLit(1))), ReturnStmt(CallStmt(height, BinExpr(-, Id(someshitvalue), IntegerLit(1))))]))
+])
