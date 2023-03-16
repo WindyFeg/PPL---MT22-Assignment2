@@ -1,0 +1,3 @@
+Program([
+	IfStmt(BinExpr(<, Id(a), Id(b)), BlockStmt([AssignStmt(Id(a), IntegerLit(2))]))
+])

@@ -29,15 +29,6 @@ operator: arithmetricop| booleanop | stringop | relationalop | indexexpression;
 // *Two operation type
 // *Two expression (condition expression & typical expression)
 operand: constant | functioncall | ID |subexpression ;
-condeoperand:constant | functioncall | ID | subcondexpression;
-
-
-subcondexpression: LB condexpression RB ;
-condexpression: condexpression relationalop condexpression|condexpression_logic;
-condexpression_logic:condexpression_logic (AND|OR) condex_unary | condex_unary;
-condex_unary:NOT condeoperand
-		|condeoperand;		
-
 
 //* Expression
 subexpression:LB expression RB ;
@@ -68,7 +59,7 @@ parameter: INHERIT? OUT? ID COL vartype;
 indexop:LSB expressionlist RSB;
 
 //? arguement add-on
-arguement: expression; //TODO arguement
+arguement: expression;
 functionmainprot:MAIN COL FUNCTION (VOID|AUTO) LB parameterlist? RB (INHERIT ID)?;
 functionprot: ID COL FUNCTION (VOID|vartype) LB parameterlist? RB (INHERIT ID)?;
 // ?add-on not found in mt22
@@ -97,11 +88,11 @@ ifstatement: IF LB expression RB statement (ELSE statement)? ;
 // ? statement should be statement list
 
 
-forhead:FOR LB scalarvar EQU expression COMA condexpression COMA expression RB;
+forhead:FOR LB scalarvar EQU expression COMA expression COMA expression RB;
 // modified
-forstatement: forhead blockstatement;
+forstatement: forhead statement;
 
-whilecondition:WHILE LB condexpression RB;
+whilecondition:WHILE LB expression RB;
 whilestatement:whilecondition statement;
 
 dowhilestatement: DO blockstatement whilecondition SEM;

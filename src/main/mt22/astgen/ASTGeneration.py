@@ -54,20 +54,20 @@ class ASTGeneration(MT22Visitor):
     #% functiondecl: functionprot functionbody;
     def visitFunctiondecl(self, ctx: MT22Parser.functiondecl):
         f_name, f_return_type, f_params, f_inherit = self.visit(ctx.functionprot())
-        return FuncDecl(
+        return [FuncDecl(
             f_name,
             f_return_type,
             f_params,
             f_inherit,
             self.visit(ctx.functionbody()) # BlockStmt
-        )
+        )]
     
     #% functionprot: ID COL FUNCTION (VOID|vartype) LB parameterlist? RB (INHERIT ID)?;
     def visitFunctionprot(self, ctx: MT22Parser.functionprot):
-        f_name = self.visit(ctx.Id())
-        f_return_type = ctx.VOID().getText() if ctx.VOID() else self.visit(ctx.vartype()) 
+        f_name = ctx.ID(0).getText()
+        f_return_type = VoidType() if ctx.VOID() else self.visit(ctx.vartype()) 
         f_params = self.visit(ctx.parameterlist())
-        f_inherit = self.visit(ctx.Id())
+        f_inherit = ctx.ID(1).getText() if ctx.ID(1) else None
         return f_name, f_return_type, f_params, f_inherit
 
     #@ 2.1.3 Function body
@@ -115,7 +115,7 @@ class ASTGeneration(MT22Visitor):
     #% parameter: INHERIT? OUT? ID COL vartype;
     def visitParameter(self, ctx: MT22Parser.parameter):
         return ParamDecl(
-            str(ctx.Id().getText()),
+            str(ctx.ID().getText()),
             self.visit(ctx.vartype()),
             True if ctx.OUT() else False,
             True if ctx.INHERIT() else False
@@ -141,6 +141,18 @@ class ASTGeneration(MT22Visitor):
         if ctx.statementlist():
             return [self.visit(ctx.statement())] + self.visit(ctx.statementlist())
         return [self.visit(ctx.statement())]
+
+    #@ 3.5. Argument list
+    #% arguementlist: arguement COMA arguementlist | arguement;
+    def visitArguementlist(self, ctx: MT22Parser.arguementlist):
+        if ctx.arguementlist():
+            return [self.visit(ctx.arguement())] + self.visit(ctx.arguementlist())
+        return [self.visit(ctx.arguement())]
+    
+    # % arguement: expression;
+    def visitArguement(self, ctx: MT22Parser.arguement):
+        return self.visit(ctx.expression())
+
 
     #@ 4. STATEMENT
     #%statement: assignstatement 
@@ -178,22 +190,87 @@ class ASTGeneration(MT22Visitor):
         return None
     #@ 4.1. Assign statement
     #% assignstatement: lhs EQU expression SEM;
-
+    def visitAssignstatement(self, ctx: MT22Parser.assignstatement):
+        return AssignStmt(self.visit(ctx.lhs()), self.visit(ctx.expression()))
+      
     #% lhs: scalarvar | indexexpression;
+    def visitLhs(self, ctx: MT22Parser.lhs):
+        if ctx.scalarvar():
+            return Id(ctx.scalarvar().getText())
+        return self.visit(ctx.indexexpression())
+    
     #@ 4.2. If statement
+    #% ifstatement: IF LB expression RB statement (ELSE statement)? ;
+    def visitIfstatement(self, ctx: MT22Parser.ifstatement):
+        return IfStmt(self.visit(ctx.expression()), self.visit(ctx.statement(0)), self.visit(ctx.statement(1)) if ctx.ELSE() else None)
+    
     #@ 4.3. For statement
+    #% forstatement: forhead statement;
+    def visitForstatement(self, ctx: MT22Parser.forstatement):
+        forHead = self.visit(ctx.forhead())
+        return ForStmt(
+            forHead[0],
+            forHead[1],
+            forHead[2],
+            self.visit(ctx.statement())
+        )
+    
+    #% forhead:FOR LB scalarvar EQU expression COMA expression COMA expression RB;
+    def visitForhead(self, ctx: MT22Parser.forhead):
+        return (AssignStmt(ctx.scalarvar().getText(), self.visit(ctx.expression(0))), 
+                self.visit(ctx.expression(1)), 
+                self.visit(ctx.expression(2))) 
     #@ 4.4. While statement
+    #% whilestatement:whilecondition statement;
+    def visitWhilestatement(self, ctx: MT22Parser.whilestatement):
+        return WhileStmt(self.visit(ctx.whilecondition()), self.visit(ctx.statement()))
+
+    #%whilecondition:WHILE LB expression RB;
+    def visitWhilecondition(self, ctx: MT22Parser.whilecondition):
+        return self.visit(ctx.expression())
+    
     #@ 4.5. Do-while statement
+    #%dowhilestatement: DO blockstatement whilecondition SEM;
+    def visitDowhilestatement(self, ctx: MT22Parser.dowhilestatement):
+        return DoWhileStmt(self.visit(ctx.whilecondition()), self.visit(ctx.blockstatement()))
+    
     #@ 4.6. Break statement
+    #% breakstatement: BREAK SEM;
+    def visitBreakstatement(self, ctx: MT22Parser.breakstatement):
+        return BreakStmt()
+
     #@ 4.7. Continue statement
+    #% continuestatement: CONTINUE SEM;
+    def visitContinuestatement(self, ctx: MT22Parser.continuestatement):
+        return ContinueStmt()
+
     #@ 4.8. Return statement
+    #% returnstatement: RETURN expression SEM;
+    def visitReturnstatement(self, ctx: MT22Parser.returnstatement):
+        return ReturnStmt(self.visit(ctx.expression()))
+
     #@ 4.9. Call statement
+    #% callstatement: functioncall SEM;
+    def visitCallstatement(self, ctx: MT22Parser.callstatement):
+        return self.visit(ctx.functioncall())
+
+    #% functioncall: ID LB arguementlist? RB;
+    def visitFunctioncall(self, ctx: MT22Parser.functioncall):
+        return CallStmt(
+            ctx.ID().getText(),
+            self.visit(ctx.arguementlist()) if ctx.arguementlist() else []
+        )
+
     #@ 4.10. Block statement
     #% blockstatement: LCB (statementlist|variabledecl)*? RCB;
     def visitBlockstatement(self, ctx: MT22Parser.blockstatement):
-        if ctx.variabledecl() or ctx.statementlist() :
-            return None #TODO
-        return BlockStmt([])
+        listStmtVarDecl = []
+        for item in range(1, ctx.getChildCount() - 1):
+            if ctx.statementlist():
+                listStmtVarDecl += self.visit(ctx.getChild(item))
+            elif ctx.variabledecl():
+                listStmtVarDecl += self.visit(ctx.getChild(item))
+        return BlockStmt(listStmtVarDecl)
 
     #@ 5. EXPRESSION
     #%  stringop: SCOPE;
@@ -230,11 +307,11 @@ class ASTGeneration(MT22Visitor):
     def visitConstant(self, ctx: MT22Parser.constant):
         if ctx.STR():
             return StringLit(ctx.STR().getText())
-        if ctx.BOOL():
+        elif ctx.BOOL():
             return BooleanLit(True if ctx.BOOL().getText() == "true" else False)
-        if ctx.FLO():
+        elif ctx.FLO():
             return FloatLit(float(ctx.FLO().getText()))
-        if ctx.INT():
+        elif ctx.INT():
             return IntegerLit(int(ctx.INT().getText()))
         return self.visit(ctx.arr())
 
@@ -265,7 +342,7 @@ class ASTGeneration(MT22Visitor):
             return BinExpr(
                 str(ctx.getChild(1).getText()),
                 self.visit(ctx.expression_logic()),
-                self.visit(ctx.expression_bina1(0))
+                self.visit(ctx.expression_bina1())
             )
         return self.visit(ctx.expression_bina1())
 
@@ -275,7 +352,7 @@ class ASTGeneration(MT22Visitor):
             return BinExpr(
                 str(ctx.getChild(1).getText()),
                 self.visit(ctx.expression_bina1()),
-                self.visit(ctx.expression_bina2(0))
+                self.visit(ctx.expression_bina2())
             )
         return self.visit(ctx.expression_bina2())
 

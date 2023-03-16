@@ -64,31 +64,6 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#condeoperand.
-    def visitCondeoperand(self, ctx:MT22Parser.CondeoperandContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#subcondexpression.
-    def visitSubcondexpression(self, ctx:MT22Parser.SubcondexpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#condexpression.
-    def visitCondexpression(self, ctx:MT22Parser.CondexpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#condexpression_logic.
-    def visitCondexpression_logic(self, ctx:MT22Parser.Condexpression_logicContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#condex_unary.
-    def visitCondex_unary(self, ctx:MT22Parser.Condex_unaryContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MT22Parser#subexpression.
     def visitSubexpression(self, ctx:MT22Parser.SubexpressionContext):
         return self.visitChildren(ctx)

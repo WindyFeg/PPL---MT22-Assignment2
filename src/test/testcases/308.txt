@@ -1,0 +1,7 @@
+if (true || boolVar){
+    a = "phong";
+}
+else 
+{
+    a = "ky";
+}

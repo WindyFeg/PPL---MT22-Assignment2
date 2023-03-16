@@ -1,0 +1,22 @@
+a: integer;
+a = 1 + 2;
+
+if (a < b){
+    a = 2;
+}
+
+if (true || boolVar){
+    a = "phong";
+}
+else 
+{
+    a = "ky";
+}
+
+for(i=0, i<10, i+1)
+{ 
+    print(i);
+}
+
+a,b,c : float;
+a,b,c = 1.0, 4.23e2, 0.0002E-2

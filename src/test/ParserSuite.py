@@ -173,7 +173,7 @@ class ParserSuite(unittest.TestCase):
         self.assertTrue(TestParser.test(input, expect, 223))
     def test_stmt8_2(self):
         input = """main: function void() {
-            for(i=11+4, i<8 && i>6, i+2-0.5){ writeInt(i);}
+            for(i=11+4, (i<8) && (i>6), i+2-0.5){ writeInt(i);}
             }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 224))
