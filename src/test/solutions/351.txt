@@ -1,3 +1,3 @@
 Program([
-	FuncDecl(main, AutoType, [OutParam(i, AutoType)], None, BlockStmt([ReturnStmt(ArrayCell(Id(alo), [IntegerLit(273)]))]))
+	FuncDecl(main, AutoType, [OutParam(i, AutoType)], None, BlockStmt([ReturnStmt(ArrayCell(alo, [IntegerLit(273)]))]))
 ])

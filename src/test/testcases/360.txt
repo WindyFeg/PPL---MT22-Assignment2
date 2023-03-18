@@ -1,0 +1,9 @@
+main: function void () {
+             for ( i = a::b, i <= 1_12, (-i) + 1)
+                {
+                    printInteger();
+                    a: integer = 10_23; 
+                    return a + 1;
+                }
+           }
+        

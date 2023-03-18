@@ -88,7 +88,7 @@ ifstatement: IF LB expression RB statement (ELSE statement)? ;
 // ? statement should be statement list
 
 
-forhead:FOR LB scalarvar EQU expression COMA expression COMA expression RB;
+forhead:FOR LB lhs EQU expression COMA expression COMA expression RB;
 // modified
 forstatement: forhead statement;
 

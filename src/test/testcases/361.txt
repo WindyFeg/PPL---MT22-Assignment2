@@ -1,0 +1,9 @@
+main: function void () {
+             for ( i = a::b, i <= 1_12, (-i) + 1)
+                {
+                    if ((a && b) >= 1.21) return helloworld();
+                    else break;
+                    a,b: array[2] of integer;
+                }
+           }
+        

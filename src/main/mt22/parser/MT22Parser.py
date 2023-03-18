@@ -155,7 +155,7 @@ def serializedATN():
         buf.write("\u0130\7\'\2\2\u0130\u0133\5<\37\2\u0131\u0132\7\n\2\2")
         buf.write("\u0132\u0134\5<\37\2\u0133\u0131\3\2\2\2\u0133\u0134\3")
         buf.write("\2\2\2\u0134A\3\2\2\2\u0135\u0136\7\f\2\2\u0136\u0137")
-        buf.write("\7&\2\2\u0137\u0138\58\35\2\u0138\u0139\7*\2\2\u0139\u013a")
+        buf.write("\7&\2\2\u0137\u0138\5:\36\2\u0138\u0139\7*\2\2\u0139\u013a")
         buf.write("\5\32\16\2\u013a\u013b\7 \2\2\u013b\u013c\5\32\16\2\u013c")
         buf.write("\u013d\7 \2\2\u013d\u013e\5\32\16\2\u013e\u013f\7\'\2")
         buf.write("\2\u013fC\3\2\2\2\u0140\u0141\5B\"\2\u0141\u0142\5<\37")
@@ -2524,8 +2524,8 @@ class MT22Parser ( Parser ):
         def LB(self):
             return self.getToken(MT22Parser.LB, 0)
 
-        def scalarvar(self):
-            return self.getTypedRuleContext(MT22Parser.ScalarvarContext,0)
+        def lhs(self):
+            return self.getTypedRuleContext(MT22Parser.LhsContext,0)
 
 
         def EQU(self):
@@ -2570,7 +2570,7 @@ class MT22Parser ( Parser ):
             self.state = 308
             self.match(MT22Parser.LB)
             self.state = 309
-            self.scalarvar()
+            self.lhs()
             self.state = 310
             self.match(MT22Parser.EQU)
             self.state = 311

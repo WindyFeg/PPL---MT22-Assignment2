@@ -1,0 +1,5 @@
+
+    a,b,c : array [2] of integer = {1,1}, {2,2}, {3,5-4};
+    main: function void () {
+        for (i=1,i<100,i+1) break;
+}

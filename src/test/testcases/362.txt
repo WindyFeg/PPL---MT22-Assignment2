@@ -1,0 +1,7 @@
+ASDASD: function boolean(inherit out a: auto, out b: array [2] of string) inherit a
+        {
+            while( a >= b ) 
+                if (a == n) return printInteger(); 
+                else break;
+        }
+        

@@ -215,9 +215,9 @@ class ASTGeneration(MT22Visitor):
             self.visit(ctx.statement())
         )
     
-    #% forhead:FOR LB scalarvar EQU expression COMA expression COMA expression RB;
+    #% forhead:FOR LB lhs EQU expression COMA expression COMA expression RB;
     def visitForhead(self, ctx: MT22Parser.forhead):
-        return (AssignStmt(ctx.scalarvar().getText(), self.visit(ctx.expression(0))), 
+        return (AssignStmt(self.visit(ctx.lhs()), self.visit(ctx.expression(0))), 
                 self.visit(ctx.expression(1)), 
                 self.visit(ctx.expression(2))) 
     #@ 4.4. While statement
@@ -287,7 +287,7 @@ class ASTGeneration(MT22Visitor):
     #% indexexpression: ID indexop;
     def visitIndexexpression(self, ctx: MT22Parser.indexexpression):
         return ArrayCell(
-            Id(ctx.ID().getText()),
+            ctx.ID().getText(),
             #! return Expr list
             self.visit(ctx.indexop())
         )
@@ -317,6 +317,10 @@ class ASTGeneration(MT22Visitor):
         elif ctx.INT():
             return IntegerLit(int(ctx.INT().getText()))
         return self.visit(ctx.arr())
+    
+    #% arr: LCB expressionlist? RCB;
+    def visitArr(self, ctx: MT22Parser.arr):
+        return ArrayLit(self.visit(ctx.expressionlist()) if ctx.expressionlist() else [])
 
     #% subexpression:LB expression RB ;
     def visitSubexpression(self, ctx: MT22Parser.subexpression):

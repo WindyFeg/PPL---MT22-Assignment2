@@ -1,4 +1,4 @@
 Program([
 	VarDecl(x, ArrayType([2], IntegerType))
-	FuncDecl(main, VoidType, [], None, BlockStmt([CallStmt(writeln, ArrayCell(Id(x), [IntegerLit(0)])), CallStmt(writeln, ArrayCell(Id(x), [ArrayCell(Id(x), [IntegerLit(0)])])), ReturnStmt(IntegerLit(0))]))
+	FuncDecl(main, VoidType, [], None, BlockStmt([CallStmt(writeln, ArrayCell(x, [IntegerLit(0)])), CallStmt(writeln, ArrayCell(x, [ArrayCell(x, [IntegerLit(0)])])), ReturnStmt(IntegerLit(0))]))
 ])

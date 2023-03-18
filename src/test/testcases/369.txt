@@ -1,0 +1,11 @@
+
+    testfunc: function integer (a: integer) {
+        while (a < 10) {
+            for(i = 1, i < 10, i + 1) a = a + 1;
+        }
+        readBoolean(a==10);
+        return a + 3;
+    }
+    main: function void () {
+        testfunc();
+}

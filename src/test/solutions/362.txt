@@ -1,0 +1,3 @@
+Program([
+	FuncDecl(ASDASD, BooleanType, [InheritOutParam(a, AutoType), OutParam(b, ArrayType([2], StringType))], a, BlockStmt([WhileStmt(BinExpr(>=, Id(a), Id(b)), IfStmt(BinExpr(==, Id(a), Id(n)), ReturnStmt(FuncCall(printInteger, [])), BreakStmt()))]))
+])
