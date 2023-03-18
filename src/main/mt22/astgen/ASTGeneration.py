@@ -45,7 +45,7 @@ class ASTGeneration(MT22Visitor):
     #% functionmainprot:MAIN COL FUNCTION (VOID|AUTO) LB parameterlist? RB (INHERIT ID)?;
     def visitFunctionmainprot(self, ctx: MT22Parser.functionmainprot):
         mf_name = ctx.MAIN().getText()
-        mf_return_type = VoidType() if ctx.VOID() else self.visit(ctx.vartype())
+        mf_return_type = VoidType() if ctx.VOID() else AutoType()
         mf_params = self.visit(ctx.parameterlist()) if ctx.parameterlist() else []
         mf_inherit = self.visit(ctx.Id()) if ctx.ID() else None
         return (mf_name, mf_return_type, mf_params, mf_inherit)
@@ -250,13 +250,16 @@ class ASTGeneration(MT22Visitor):
         return ReturnStmt(self.visit(ctx.expression()))
 
     #@ 4.9. Call statement
-    #% callstatement: functioncall SEM;
+    #% callstatement: ID LB arguementlist? RB SEM;
     def visitCallstatement(self, ctx: MT22Parser.callstatement):
-        return self.visit(ctx.functioncall())
+        return CallStmt(
+            ctx.ID().getText(),
+            self.visit(ctx.arguementlist()) if ctx.arguementlist() else []
+        )
 
     #% functioncall: ID LB arguementlist? RB;
     def visitFunctioncall(self, ctx: MT22Parser.functioncall):
-        return CallStmt(
+        return FuncCall(
             ctx.ID().getText(),
             self.visit(ctx.arguementlist()) if ctx.arguementlist() else []
         )
@@ -306,7 +309,6 @@ class ASTGeneration(MT22Visitor):
     #% constant: STR | BOOL | FLO | INT | arr;
     def visitConstant(self, ctx: MT22Parser.constant):
         if ctx.STR():
-            print(str(ctx.STR().getText()))
             return StringLit(str(ctx.STR().getText()))
         elif ctx.BOOL():
             return BooleanLit(True if ctx.BOOL().getText() == "true" else False)
@@ -425,6 +427,10 @@ class ASTGeneration(MT22Visitor):
             return BooleanType()
         elif ctx.FLOAT():
             return FloatType()
+        elif ctx.AUTO():
+            return AutoType()
+        else:
+            return None
     
     #@ Type
     # @ ID & LITERAL

@@ -1,0 +1,4 @@
+main: function auto(out i: auto){
+return i + "
+some string;";
+}

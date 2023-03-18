@@ -1,3 +1,3 @@
 Program([
-	AssignStmt(Id(result), CallStmt(funct, ))
+	AssignStmt(Id(result), FuncCall(funct, []))
 ])

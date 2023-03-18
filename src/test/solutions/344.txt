@@ -1,0 +1,3 @@
+Program([
+	FuncDecl(Aloha, AutoType, [], None, BlockStmt([VarDecl(A, IntegerType, BinExpr(-, BinExpr(+, IntegerLit(1), IntegerLit(4)), BinExpr(/, BinExpr(/, IntegerLit(3), IntegerLit(2)), Id(q)))), VarDecl(b, IntegerType, BinExpr(+, Id(q), BinExpr(/, FloatLit(4.31), Id(e))))]))
+])

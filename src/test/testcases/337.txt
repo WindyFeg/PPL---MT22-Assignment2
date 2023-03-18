@@ -1,0 +1,4 @@
+main: function void (){
+    CallStatement();
+    result = CallFunction() + 1;
+}

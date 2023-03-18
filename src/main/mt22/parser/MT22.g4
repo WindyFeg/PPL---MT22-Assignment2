@@ -105,7 +105,7 @@ continuestatement: CONTINUE SEM;
 
 returnstatement: RETURN expression SEM;
 
-callstatement: functioncall SEM;
+callstatement: ID LB arguementlist? RB SEM;
 
 blockstatement: LCB (statementlist|variabledecl)*? RCB;
 

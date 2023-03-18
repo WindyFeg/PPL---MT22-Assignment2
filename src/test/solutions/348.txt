@@ -1,0 +1,3 @@
+Program([
+	FuncDecl(main, AutoType, [OutParam(i, AutoType)], None, BlockStmt([ReturnStmt(BinExpr(::, Id(qw), Id(wi)))]))
+])

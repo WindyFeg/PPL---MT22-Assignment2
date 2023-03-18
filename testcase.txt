@@ -74,3 +74,8 @@ do {
 	int :integer;
 }
 while(true)
+
+main: function void (){
+    A();
+    result = B() + 1;
+}

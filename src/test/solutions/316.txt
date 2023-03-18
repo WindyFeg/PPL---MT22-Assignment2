@@ -1,3 +1,3 @@
 Program([
-	AssignStmt(Id(result), BinExpr(+, BinExpr(+, CallStmt(funct, IntegerLit(12)), CallStmt(otherFun, IntegerLit(12))), IntegerLit(23)))
+	AssignStmt(Id(result), BinExpr(+, BinExpr(+, FuncCall(funct, [IntegerLit(12)]), FuncCall(otherFun, [IntegerLit(12)])), IntegerLit(23)))
 ])
