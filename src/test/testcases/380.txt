@@ -1,1 +1,6 @@
-main:function string (){a = 2; b =1; break;}
+
+            /* main function */
+            main: function auto () {
+                a = 1_23.04E-56;
+            }
+        

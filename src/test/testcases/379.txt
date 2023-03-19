@@ -1,3 +1,7 @@
-main:function string (){}
-        main:function string (){}
-        main:function string (){}
+
+            /* main function */
+            ac : float = 12.0e-10;
+            main: function auto () {
+                a = true || false;
+            }
+        

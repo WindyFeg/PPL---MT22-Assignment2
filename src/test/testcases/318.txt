@@ -1,1 +1,5 @@
-x: integer = iden;
+in : function void () {
+                for( i = 0, i < 1, i + 1){
+                        for( j = 0, j < 1 + 1, j + 1){}
+                }
+        }

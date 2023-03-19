@@ -1,3 +1,3 @@
 Program([
-	VarDecl(x, IntegerType, ArrayLit([]))
+	AssignStmt(Id(result), FuncCall(funct, []))
 ])

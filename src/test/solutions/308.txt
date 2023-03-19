@@ -1,3 +1,3 @@
 Program([
-	VarDecl(x, IntegerType, IntegerLit(1))
+	IfStmt(BinExpr(||, BooleanLit(True), Id(boolVar)), BlockStmt([AssignStmt(Id(a), StringLit(phong))]), BlockStmt([AssignStmt(Id(a), StringLit(ky))]))
 ])

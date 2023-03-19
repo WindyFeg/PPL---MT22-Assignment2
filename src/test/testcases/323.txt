@@ -1,1 +1,1 @@
-x: integer = 2+4*5&&!a==4;
+main: function void() {while (n<11){}; }

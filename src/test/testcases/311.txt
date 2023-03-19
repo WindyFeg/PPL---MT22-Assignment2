@@ -1,1 +1,4 @@
-x: integer = "Hello world";
+fact : function integer (){
+	a,_c,_d : boolean;
+a = _c + (a + 13) * (24 * x) / 2 - x;
+}

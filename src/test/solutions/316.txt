@@ -1,3 +1,3 @@
 Program([
-	VarDecl(x, IntegerType, ArrayLit([IntegerLit(1), BooleanLit(False), BooleanLit(True), StringLit(hello), FloatLit(2.01)]))
+	AssignStmt(Id(result), BinExpr(+, BinExpr(+, FuncCall(funct, [IntegerLit(12)]), FuncCall(otherFun, [IntegerLit(12)])), IntegerLit(23)))
 ])

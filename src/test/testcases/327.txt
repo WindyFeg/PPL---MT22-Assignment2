@@ -1,4 +1,5 @@
-fact : function integer (n : integer) inherit lol {
-                        a = 1;
-                        b = 1 + 2 - 3;
-                }
+fooooooo: function void(inherit babyloon : boolean) inherit mainn{
+    q,w,e,r,r,ty,r,y,e : boolean = 1,2,3,4,5,6,7,8,9;
+    q = w + e - f ;
+    return false || q;
+}

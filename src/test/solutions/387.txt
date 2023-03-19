@@ -1,3 +1,3 @@
 Program([
-	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, AutoType, BinExpr(==, BinExpr(/, Id(a), Id(a)), BinExpr(-, BinExpr(/, Id(b), Id(b)), BinExpr(::, Id(asdf), Id(asdf)))))]))
+	FuncDecl(main, VoidType, [], None, BlockStmt([ForStmt(AssignStmt(Id(i), IntegerLit(1)), BinExpr(<, Id(i), IntegerLit(10)), BinExpr(+, Id(i), IntegerLit(1)), BlockStmt([CallStmt(writeInt, Id(i)), AssignStmt(Id(a), IntegerLit(1)), VarDecl(a, IntegerType), VarDecl(b, IntegerType, IntegerLit(2)), IfStmt(BinExpr(<, IntegerLit(1), IntegerLit(2)), AssignStmt(Id(a), IntegerLit(0)))]))]))
 ])

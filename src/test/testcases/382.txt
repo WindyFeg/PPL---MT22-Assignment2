@@ -1,1 +1,9 @@
-main:function string (){return foo(1 - 2, a, "True");}
+
+            /* main function */
+            ac : float = 12.0e-10;
+            str : auto = "abc";
+            main: function auto () {
+                a = "Chuoi cua ban la: \"12345\"";
+
+            }
+        

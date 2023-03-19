@@ -1,4 +1,4 @@
-fact : function integer (n : integer) inherit lol {
-                        a[1] = 1;
-                        b[1,2,3] = 1 + 2 - 3;
-                }
+main: function void() {
+            //x = z::y;
+            //preventDefault() = x;
+            }

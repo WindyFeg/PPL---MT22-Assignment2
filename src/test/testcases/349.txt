@@ -1,4 +1,3 @@
-fact : function integer (){
-                a,_c,_d : boolean;
-                a = _c + (a + 13) * (24 * x) / 2 - x;           
-        }
+main: function auto(out i: auto){
+return 173.2874E-2;
+}

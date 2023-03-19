@@ -1,1 +1,7 @@
-x: integer = 1;
+if (true || boolVar){
+    a = "phong";
+}
+else 
+{
+    a = "ky";
+}

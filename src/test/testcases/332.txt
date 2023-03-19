@@ -1,3 +1,6 @@
-fact : function integer (){
-                break;
+foo: function void() {
+            x: integer = 1;
+            if (x == 1) {
+                putInt(x);
+            }
         }

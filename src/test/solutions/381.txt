@@ -1,0 +1,4 @@
+Program([
+	VarDecl(factor, IntegerType, FloatLit(10.0))
+	FuncDecl(main, AutoType, [], None, BlockStmt([AssignStmt(Id(a), StringLit(@#$&	^@$(@(ahs\"ash\"%%@&@\"dsad\"123&^@@))]))
+])

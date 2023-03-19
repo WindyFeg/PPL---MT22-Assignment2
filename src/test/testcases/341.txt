@@ -1,3 +1,4 @@
-fact : function integer (){
-                readInteger();
-        }
+main: function auto(out i: auto){
+break;
+for(i = 7, i + 4, i + 0){}
+}

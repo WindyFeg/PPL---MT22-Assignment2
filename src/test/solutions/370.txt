@@ -1,4 +1,3 @@
 Program([
-	VarDecl(delta123, StringType, StringLit(Hello))
-	VarDecl(alpha123, StringType, StringLit(World))
+	FuncDecl(main, VoidType, [], None, BlockStmt([ForStmt(AssignStmt(Id(i), IntegerLit(1)), BinExpr(<, Id(i), IntegerLit(100)), BinExpr(+, Id(i), IntegerLit(1)), BlockStmt([IfStmt(BinExpr(<, Id(a), IntegerLit(1)), ContinueStmt()), VarDecl(a, BooleanType, BooleanLit(False))]))]))
 ])

@@ -1,4 +1,3 @@
-fact : function integer (){
-                a = {};
-                 
-        }
+What : function string(as: integer){
+ a, b: integer = a && true, b || false;
+}

@@ -1,1 +1,6 @@
-delta123 : boolean = true;
+
+            /* main function */
+            mainn: function float () {
+                return 1 + 2 + {} - myPI * foo(a[a[0]] - 10 + swap());
+            }
+        

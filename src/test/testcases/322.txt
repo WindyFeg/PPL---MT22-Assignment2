@@ -1,1 +1,3 @@
-x: integer = a==4;
+square : function integer (out res: integer, num : integer) inherit height{
+    return num * num;
+}

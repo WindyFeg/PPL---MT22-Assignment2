@@ -1,3 +1,3 @@
-fact : function integer (){
-                readInteger(a,b,1,2+1,true,"hello");
-        }
+Aloha: function auto (){
+A,b : integer= !1, b;
+}

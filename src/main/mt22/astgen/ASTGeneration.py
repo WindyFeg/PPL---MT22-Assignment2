@@ -42,12 +42,12 @@ class ASTGeneration(MT22Visitor):
             self.visit(ctx.functionbody()) # BlockStmt
         )]
     
-    #% functionmainprot:MAIN COL FUNCTION (VOID|AUTO) LB parameterlist? RB (INHERIT ID)?;
+    #% functionmainprot:MAIN COL FUNCTION (VOID|vartype) LB parameterlist? RB (INHERIT ID)?;
     def visitFunctionmainprot(self, ctx: MT22Parser.functionmainprot):
         mf_name = ctx.MAIN().getText()
-        mf_return_type = VoidType() if ctx.VOID() else AutoType()
+        mf_return_type = VoidType() if ctx.VOID() else self.visit(ctx.vartype()) 
         mf_params = self.visit(ctx.parameterlist()) if ctx.parameterlist() else []
-        mf_inherit = self.visit(ctx.Id()) if ctx.ID() else None
+        mf_inherit = ctx.ID().getText() if ctx.ID() else None
         return (mf_name, mf_return_type, mf_params, mf_inherit)
     
     #@ 2.1.2 Normal function
@@ -245,9 +245,9 @@ class ASTGeneration(MT22Visitor):
         return ContinueStmt()
 
     #@ 4.8. Return statement
-    #% returnstatement: RETURN expression SEM;
+    #% returnstatement: RETURN expression? SEM;
     def visitReturnstatement(self, ctx: MT22Parser.returnstatement):
-        return ReturnStmt(self.visit(ctx.expression()))
+        return ReturnStmt(self.visit(ctx.expression()) if ctx.expression() else None)
 
     #@ 4.9. Call statement
     #% callstatement: ID LB arguementlist? RB SEM;

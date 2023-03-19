@@ -1,1 +1,10 @@
-main:function string (){a = 2; b =1; return;}
+
+            /* main function */
+            ac : float = 12.0e-10;
+            str : auto = "abc";
+            main: function auto () {
+                a = true || false;
+                b : auto;
+
+            }
+        

@@ -1,3 +1,4 @@
 Program([
-	FuncDecl(fact, IntegerType, [], None, BlockStmt([IfStmt(BinExpr(+, IntegerLit(1), IntegerLit(1)), BlockStmt([AssignStmt(Id(a), IntegerLit(1)), AssignStmt(Id(b), IntegerLit(2))]))]))
+	VarDecl(x, ArrayType([2], IntegerType))
+	FuncDecl(main, VoidType, [], None, BlockStmt([CallStmt(writeln, ArrayCell(x, [IntegerLit(0)])), CallStmt(writeln, ArrayCell(x, [ArrayCell(x, [IntegerLit(0)])])), ReturnStmt(IntegerLit(0))]))
 ])

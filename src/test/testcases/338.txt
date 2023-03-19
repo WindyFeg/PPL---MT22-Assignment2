@@ -1,5 +1,1 @@
-fact : function integer (){
-                do{a = a+1;}
-                while(a < 10);
-                return;
-        }
+main : function auto (){}

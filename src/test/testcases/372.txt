@@ -1,3 +1,6 @@
-delta123 : integer = 1;
-        count : integer = 0;
-        up : string = "GO";
+
+            /* main function */
+            mainn: function float (out n : integer, out i : float) {
+                a = true && false;
+            }
+        

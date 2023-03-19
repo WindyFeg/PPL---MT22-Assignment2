@@ -1,8 +1,3 @@
-fact : function integer (){
-                do{a = a+1;
-                continue;
-                break;
-                }
-                while(a < 10);
-                return a;
-        }
+main: function auto(out i: auto){
+return i + "\nsome string;";
+}

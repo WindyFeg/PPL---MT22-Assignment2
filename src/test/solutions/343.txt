@@ -1,3 +1,3 @@
 Program([
-	FuncDecl(fact, IntegerType, [], None, BlockStmt([CallStmt(readInteger, Id(a), Id(b), IntegerLit(1), BinExpr(+, IntegerLit(2), IntegerLit(1)), BooleanLit(True), StringLit(hello))]))
+	FuncDecl(Aloha, AutoType, [], None, BlockStmt([VarDecl(A, IntegerType, UnExpr(!, IntegerLit(1))), VarDecl(b, IntegerType, Id(b))]))
 ])

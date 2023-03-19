@@ -1,1 +1,7 @@
-main: function void() inherit abc {}
+
+            /* main function */
+            factor : integer = 10.0;
+            mainn: function float (inherit out a : auto) {
+                a = true || false;
+            }
+        

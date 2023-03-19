@@ -1,1 +1,13 @@
-main: function integer(a: integer, out b: float, inherit c: string) inherit abc {}
+
+            main: function void(){
+                a : auto = 12.128431e-10;
+                var = se % 10 + 10 - 1;
+                a : auto = "string";
+                while(acn > 10 + 1){
+                    s = l + 1;
+                    for ( i = 1, j > 0 ,  c + 1){
+                        return a + fact(12);
+                    }
+                }
+            }
+        

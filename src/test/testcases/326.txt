@@ -1,4 +1,4 @@
-fact : function integer (n : integer){
-                        a = 1;
-                        b = 1 + 2 - 3;
-                }
+main: function void() {
+            x,y: float = 1.334, 1_342.2e+4;
+            n: float = x+y*y;
+            }

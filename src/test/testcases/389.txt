@@ -1,3 +1,5 @@
-main: function void() {
-                a = (a > (b > c)) > d;
-            }
+main:function string (){
+                a = "hello"::"world"; 
+                b = 1+2; 
+                return a;
+        }

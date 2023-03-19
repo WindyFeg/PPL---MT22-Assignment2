@@ -1,0 +1,4 @@
+Program([
+	VarDecl(ac, FloatType, FloatLit(1.2e-09))
+	FuncDecl(main, AutoType, [], None, BlockStmt([AssignStmt(Id(a), BinExpr(||, BooleanLit(True), BooleanLit(False)))]))
+])

@@ -1,1 +1,9 @@
-delta123 : integer = 1+1-1*2/3%3;
+main: function void()
+        {
+            while( a >= b ) {
+                while(a == b) {
+                    break;
+                }  
+            }
+        }
+        

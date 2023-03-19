@@ -1,1 +1,1 @@
-main:function void() {if(false == true) a = 1; else a = 0;}
+x: integer = ((1_123 * 2.10e+10) / 1_0_0_0) % abc;

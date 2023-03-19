@@ -1,2 +1,20 @@
-main: function void(xyz:integer, def:integer) inherit hehe {} 
-        abc:integer;
+
+            var : string = "hello world";
+            fact : function auto (alpha : string, delta : integer) {
+                if(a < b) return true;
+                else return 1 + fact(1 + 1 + 2);
+            }
+            main: function void(){
+                do{
+                    a : float = 121.124e+10;
+                    b : float = 1_124_141.012e-10;
+                    c : float = 12_124.81E-10;
+                    return false;
+                }while(n == 0);
+                var = "Lau Dai Tinh Ai" :: var;
+                for(i = a + b, i < n + 1, i + a *b -2 /10) {
+                    return "chac khong co tren tran gian";
+                }
+                test(123, ytx, 5+2+5+5);
+            }
+        

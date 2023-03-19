@@ -1,0 +1,4 @@
+Program([
+	VarDecl(factor, IntegerType, FloatLit(10.0))
+	FuncDecl(mainn, FloatType, [InheritOutParam(a, AutoType)], None, BlockStmt([AssignStmt(Id(a), BinExpr(||, BooleanLit(True), BooleanLit(False)))]))
+])

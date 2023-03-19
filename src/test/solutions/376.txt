@@ -1,0 +1,5 @@
+Program([
+	VarDecl(var, StringType, StringLit(hello world))
+	FuncDecl(fact, AutoType, [Param(alpha, StringType), Param(delta, IntegerType)], None, BlockStmt([IfStmt(BinExpr(<, Id(a), Id(b)), ReturnStmt(BooleanLit(True)), ReturnStmt(BinExpr(+, IntegerLit(1), FuncCall(fact, [BinExpr(+, BinExpr(+, IntegerLit(1), IntegerLit(1)), IntegerLit(2))]))))]))
+	FuncDecl(main, VoidType, [], None, BlockStmt([DoWhileStmt(BinExpr(==, Id(n), IntegerLit(0)), BlockStmt([VarDecl(a, FloatType, FloatLit(1211240000000.0)), VarDecl(b, FloatType, FloatLit(0.0001124141012)), VarDecl(c, FloatType, FloatLit(1.212481e-06)), ReturnStmt(BooleanLit(False))])), AssignStmt(Id(var), BinExpr(::, StringLit(Lau Dai Tinh Ai), Id(var))), ForStmt(AssignStmt(Id(i), BinExpr(+, Id(a), Id(b))), BinExpr(<, Id(i), BinExpr(+, Id(n), IntegerLit(1))), BinExpr(-, BinExpr(+, Id(i), BinExpr(*, Id(a), Id(b))), BinExpr(/, IntegerLit(2), IntegerLit(10))), BlockStmt([ReturnStmt(StringLit(chac khong co tren tran gian))])), CallStmt(test, IntegerLit(123), Id(ytx), BinExpr(+, BinExpr(+, BinExpr(+, IntegerLit(5), IntegerLit(2)), IntegerLit(5)), IntegerLit(5)))]))
+])

@@ -60,7 +60,7 @@ indexop:LSB expressionlist RSB;
 
 //? arguement add-on
 arguement: expression;
-functionmainprot:MAIN COL FUNCTION (VOID|AUTO) LB parameterlist? RB (INHERIT ID)?;
+functionmainprot:MAIN COL FUNCTION (VOID|vartype) LB parameterlist? RB (INHERIT ID)?;
 functionprot: ID COL FUNCTION (VOID|vartype) LB parameterlist? RB (INHERIT ID)?;
 // ?add-on not found in mt22
 functionbody: blockstatement;
@@ -103,7 +103,7 @@ breakstatement: BREAK SEM;
 
 continuestatement: CONTINUE SEM;
 
-returnstatement: RETURN expression SEM;
+returnstatement: RETURN expression? SEM;
 
 callstatement: ID LB arguementlist? RB SEM;
 

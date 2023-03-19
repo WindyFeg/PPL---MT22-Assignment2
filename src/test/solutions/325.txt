@@ -1,3 +1,3 @@
 Program([
-	FuncDecl(fact, IntegerType, [Param(n, IntegerType), Param(m, FloatType), Param(a, BooleanType)], None, BlockStmt([AssignStmt(Id(a), IntegerLit(1))]))
+	FuncDecl(SortArray, ArrayType([3, 232], FloatType), [], None, BlockStmt([ForStmt(AssignStmt(Id(i), IntegerLit(1)), BinExpr(!=, Id(i), BinExpr(+, FuncCall(var, [IntegerLit(123)]), IntegerLit(23))), BinExpr(+, BinExpr(/, Id(i), IntegerLit(3)), BinExpr(*, IntegerLit(4), IntegerLit(5))), BlockStmt([ReturnStmt(Id(i))]))]))
 ])

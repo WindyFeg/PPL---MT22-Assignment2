@@ -1,5 +1,50 @@
-fact : function integer (){
-                for(x=1,x<1,x+1) {
-                        a = 1;
-                }
+
+        program: function void (arr: array [10,12] of integer, left: integer, right: integer) {
+            if (left < right) {
+                mid = (left + right)/2;
+                sort(arr, left, mid);
+                sort(arr, mid + 1, right);
+                merge(arr, left, mid, right);
+            }
         }
+        merge: function void (arr: array [10] of integer, left: integer, mid: integer, right: integer) {
+            n1 = mid - left + 1;
+            n2 = right - mid;
+            left_arr : array [10] of integer;
+            right_arr : array [10] of integer;
+            for (i = 0, i < n1, i + 1) {
+                left_arr[i] = arr[left + i];
+            }
+            for (j = 0, j < n2, j + 1) {
+                right_arr[j] = arr[mid + 1 + j];
+            }
+
+            i = 0;
+            j = 0;
+            k = left;
+
+            while ((i < n1) && (j < n2)) {
+                if (left_arr[i] <= right_arr[j]) {
+                    arr[k] = left_arr[i];
+                    i = i + 1;
+                }
+                else {
+                    arr[k] = right_arr[j];
+                    j = j + 1;
+                }
+                k = k + 1;
+            }
+
+            while (i < n1) {
+                arr[k] = left_arr[i];
+                i = i + 1;
+                k = k + 1;
+            }
+
+            while (j < n2) {
+                arr[k] = right_arr[j];
+                j = j + 1;
+                k = k + 1;
+            }
+        }
+        

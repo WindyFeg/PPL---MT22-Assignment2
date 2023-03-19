@@ -1,5 +1,3 @@
 Program([
-	VarDecl(delta123, IntegerType, IntegerLit(1))
-	VarDecl(count, IntegerType, IntegerLit(0))
-	VarDecl(up, StringType, StringLit(GO))
+	FuncDecl(mainn, FloatType, [OutParam(n, IntegerType), OutParam(i, FloatType)], None, BlockStmt([AssignStmt(Id(a), BinExpr(&&, BooleanLit(True), BooleanLit(False)))]))
 ])

@@ -1,3 +1,9 @@
-main: function void() {
-                a: boolean = 1;
+
+            /* main function */
+            main: function float (a : auto, b: auto) {
+                n = 10 + 132 * x / 10 == 0 + cn;
+                for (i = 0 , i > n ,  i + 1) break;
+                while(n && a) continue;
+                do {} while(n || a);
             }
+        
