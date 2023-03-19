@@ -1,4 +1,5 @@
 Program([
-	FuncDecl(foo, VoidType, [InheritParam(a, IntegerType), InheritOutParam(b, FloatType)], bar, BlockStmt([]))
-	FuncDecl(main, VoidType, [], None, BlockStmt([CallStmt(printInteger, IntegerLit(4))]))
+	VarDecl(x, IntegerType)
+	VarDecl(y, IntegerType)
+	VarDecl(z, IntegerType)
 ])

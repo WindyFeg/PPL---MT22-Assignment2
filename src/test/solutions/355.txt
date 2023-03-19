@@ -1,3 +1,0 @@
-Program([
-	AssignStmt(Id(a), ArrayLit([IntegerLit(1), IntegerLit(2), IntegerLit(3)]))
-])

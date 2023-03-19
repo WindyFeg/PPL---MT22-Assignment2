@@ -1,3 +1,5 @@
 Program([
-	FuncDecl(square, IntegerType, [OutParam(res, IntegerType), Param(num, IntegerType)], None, BlockStmt([ReturnStmt(BinExpr(*, Id(num), Id(num)))]))
+	VarDecl(x, IntegerType, Id(iden))
+	VarDecl(y, FloatType, FloatLit(1.02))
+	VarDecl(z, FloatType, FloatLit(11.1))
 ])

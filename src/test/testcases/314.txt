@@ -1,1 +1,1 @@
-result = funct();
+x: integer = {};

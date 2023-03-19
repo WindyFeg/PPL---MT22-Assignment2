@@ -1,0 +1,5 @@
+Program([
+	VarDecl(delta123, IntegerType, IntegerLit(1))
+	VarDecl(count, IntegerType, IntegerLit(0))
+	VarDecl(up, StringType, StringLit(GO))
+])

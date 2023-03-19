@@ -1,3 +1,1 @@
-if (a < b){
-    a = 2;
-}
+x: array [1,2] of integer;

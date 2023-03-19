@@ -1,2 +1,1 @@
-a: integer;
-a = 1 + 2;
+y: boolean;

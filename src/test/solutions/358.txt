@@ -1,3 +1,4 @@
 Program([
-	VarDecl(x, IntegerType, BinExpr(-, BinExpr(+, IntegerLit(1123), FloatLit(21000000000.0)), IntegerLit(1000)))
+	VarDecl(a, ArrayType([51, 2, 3], IntegerType), ArrayLit([IntegerLit(1), IntegerLit(2), IntegerLit(3), IntegerLit(4), IntegerLit(5)]))
+	VarDecl(b, ArrayType([51, 2, 3], IntegerType), BooleanLit(False))
 ])

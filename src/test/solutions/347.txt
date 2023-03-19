@@ -1,3 +1,3 @@
 Program([
-	FuncDecl(main, AutoType, [OutParam(i, AutoType)], None, BlockStmt([VarDecl(Ass, StringType, BinExpr(::, Id(qw), Id(wi)))]))
+	FuncDecl(fact, IntegerType, [], None, BlockStmt([VarDecl(a, IntegerType, IntegerLit(1)), VarDecl(b, IntegerType, IntegerLit(2)), VarDecl(c, IntegerType, IntegerLit(3))]))
 ])

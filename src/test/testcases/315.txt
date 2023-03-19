@@ -1,1 +1,1 @@
-result = funct(passid, 12, true, "string gi foo", 13.34);
+x: integer = {1,2,3,4};

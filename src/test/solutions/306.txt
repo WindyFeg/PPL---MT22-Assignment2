@@ -1,4 +1,3 @@
 Program([
-	VarDecl(a, IntegerType)
-	AssignStmt(Id(a), BinExpr(+, IntegerLit(1), IntegerLit(2)))
+	VarDecl(y, BooleanType)
 ])

@@ -1,4 +1,4 @@
-main: function void (){
-    CallStatement();
-    result = CallFunction() + 1;
-}
+fact : function integer (){
+                do{a = a+1;}
+                while(a < 10);
+        }

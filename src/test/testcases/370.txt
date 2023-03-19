@@ -1,7 +1,1 @@
-
-    main: function void () {
-        for (i=1,i<100,i+1) {
-            if (a<1) continue;
-            a: boolean = false;
-        }
-}
+delta123,alpha123 : string = "Hello","World";

@@ -1,7 +1,1 @@
-if (true || boolVar){
-    a = "phong";
-}
-else 
-{
-    a = "ky";
-}
+x: integer = 1;

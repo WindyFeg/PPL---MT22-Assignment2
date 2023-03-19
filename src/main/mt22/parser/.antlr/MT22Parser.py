@@ -108,8 +108,8 @@ def serializedATN():
         buf.write("\2\u00c5\u00c6\f\4\2\2\u00c6\u00c7\t\b\2\2\u00c7\u00c9")
         buf.write("\5$\23\2\u00c8\u00c5\3\2\2\2\u00c9\u00cc\3\2\2\2\u00ca")
         buf.write("\u00c8\3\2\2\2\u00ca\u00cb\3\2\2\2\u00cb#\3\2\2\2\u00cc")
-        buf.write("\u00ca\3\2\2\2\u00cd\u00ce\7\62\2\2\u00ce\u00d4\5\26\f")
-        buf.write("\2\u00cf\u00d0\7.\2\2\u00d0\u00d4\5\26\f\2\u00d1\u00d4")
+        buf.write("\u00ca\3\2\2\2\u00cd\u00ce\7\62\2\2\u00ce\u00d4\5$\23")
+        buf.write("\2\u00cf\u00d0\7.\2\2\u00d0\u00d4\5$\23\2\u00d1\u00d4")
         buf.write("\5*\26\2\u00d2\u00d4\5\26\f\2\u00d3\u00cd\3\2\2\2\u00d3")
         buf.write("\u00cf\3\2\2\2\u00d3\u00d1\3\2\2\2\u00d3\u00d2\3\2\2\2")
         buf.write("\u00d4%\3\2\2\2\u00d5\u00db\7\5\2\2\u00d6\u00db\7\32\2")
@@ -1374,8 +1374,8 @@ class MT22Parser ( Parser ):
         def NOT(self):
             return self.getToken(MT22Parser.NOT, 0)
 
-        def operand(self):
-            return self.getTypedRuleContext(MT22Parser.OperandContext,0)
+        def expression_unary(self):
+            return self.getTypedRuleContext(MT22Parser.Expression_unaryContext,0)
 
 
         def MINU(self):
@@ -1383,6 +1383,10 @@ class MT22Parser ( Parser ):
 
         def indexexpression(self):
             return self.getTypedRuleContext(MT22Parser.IndexexpressionContext,0)
+
+
+        def operand(self):
+            return self.getTypedRuleContext(MT22Parser.OperandContext,0)
 
 
         def getRuleIndex(self):
@@ -1404,7 +1408,7 @@ class MT22Parser ( Parser ):
                 self.state = 203
                 self.match(MT22Parser.NOT)
                 self.state = 204
-                self.operand()
+                self.expression_unary()
                 pass
 
             elif la_ == 2:
@@ -1412,7 +1416,7 @@ class MT22Parser ( Parser ):
                 self.state = 205
                 self.match(MT22Parser.MINU)
                 self.state = 206
-                self.operand()
+                self.expression_unary()
                 pass
 
             elif la_ == 3:

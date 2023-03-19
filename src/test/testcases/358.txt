@@ -1,1 +1,1 @@
-x: integer = (1_123 + 2.10e+10) - 1_0_0_0;
+a, b: array [5_1, 2, 3] of integer = {1,2,3,4,5}, false;

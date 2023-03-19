@@ -1,0 +1,4 @@
+main: function void () {}
+            sum: function auto () {}
+            _VAR1: integer;
+            _VAR2: string = "string";

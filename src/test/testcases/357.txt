@@ -1,1 +1,1 @@
-x: boolean = (a && b) || c;
+a, b: array [5_1] of integer;

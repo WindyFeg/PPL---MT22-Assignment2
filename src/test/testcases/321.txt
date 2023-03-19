@@ -1,1 +1,3 @@
-if (var() <= 0) return var() + 7;
+fact : function integer (n : integer){}
+fuk : function integer (n : integer){}
+fik : function integer (n : integer){}

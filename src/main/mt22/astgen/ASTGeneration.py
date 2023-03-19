@@ -309,7 +309,7 @@ class ASTGeneration(MT22Visitor):
     #% constant: STR | BOOL | FLO | INT | arr;
     def visitConstant(self, ctx: MT22Parser.constant):
         if ctx.STR():
-            return StringLit(str(ctx.STR().getText()))
+            return StringLit(ctx.STR().getText())
         elif ctx.BOOL():
             return BooleanLit(True if ctx.BOOL().getText() == "true" else False)
         elif ctx.FLO():
@@ -378,20 +378,20 @@ class ASTGeneration(MT22Visitor):
         return self.visit(ctx.expression_unary())
     
     #@ 5.2. Unary expression
-    #% expression_unary: NOT operand
-    #% | MINU operand
+    #% expression_unary: NOT expression_unary
+    #% | MINU expression_unary
     #% | indexexpression
     #% | operand;
     def visitExpression_unary(self, ctx: MT22Parser.expression_unary):
         if ctx.NOT():
             return UnExpr(
                 str(ctx.NOT().getText()),
-                self.visit(ctx.operand())
+                self.visit(ctx.expression_unary())
             )
         elif ctx.MINU():
             return UnExpr(
                 str(ctx.MINU().getText()),
-                self.visit(ctx.operand())
+                self.visit(ctx.expression_unary())
             )
         # a[1,2,3]
         elif ctx.indexexpression():

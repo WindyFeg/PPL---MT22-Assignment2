@@ -1,5 +1,3 @@
-do {
-	break;
-	int :integer;
-}
-while(true);
+fact : function integer (){
+                for(x=1,x<1,x+1) a = 1;
+        }

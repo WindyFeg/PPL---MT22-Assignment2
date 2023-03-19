@@ -1,3 +1,0 @@
-Program([
-	FuncDecl(main, AutoType, [OutParam(i, AutoType)], None, BlockStmt([ReturnStmt(ArrayCell(alo, [FuncCall(ahe, [BinExpr(::, StringLit(hsisif), Id(qi))])]))]))
-])

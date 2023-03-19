@@ -1,3 +1,4 @@
-Aloha: function auto (){
-A,b : integer= 1+4-3/2/q, q + 4.31/e;
-}
+fact : function integer (){
+                if(a==0) if(b==0) a = 1;
+                 
+        }

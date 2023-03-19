@@ -1,0 +1,1 @@
+abc:integer;main: function void(xyz:integer, def:integer) inherit hehe {}

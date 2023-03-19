@@ -1,1 +1,1 @@
-result = funct(12) + otherFun(12) + 23;
+x: integer = {1,false,true,"hello",2.01};

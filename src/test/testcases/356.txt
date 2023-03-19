@@ -1,1 +1,1 @@
-x: boolean = ((((a == b) >= c) < d) > s) != 1_00_00;
+a, b: array [5] of integer;

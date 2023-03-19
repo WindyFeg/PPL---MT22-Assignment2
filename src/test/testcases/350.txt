@@ -1,3 +1,9 @@
-main: function auto(out i: auto){
-return aloha();
-}
+fact : function integer (){
+                if (true || boolVar){
+                        a = "phong";
+                }
+                else 
+                {
+                        a = "ky";
+                }          
+        }

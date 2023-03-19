@@ -1,3 +1,3 @@
 Program([
-	FuncDecl(square, IntegerType, [OutParam(res, IntegerType), Param(num, IntegerType)], height, BlockStmt([ReturnStmt(BinExpr(*, Id(num), Id(num)))]))
+	VarDecl(x, IntegerType, BinExpr(==, Id(a), IntegerLit(4)))
 ])

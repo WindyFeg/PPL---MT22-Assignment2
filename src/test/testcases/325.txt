@@ -1,5 +1,3 @@
-SortArray: function array[3, 23_2] of float() {
-    for (i = 1, i != (var(123) + 23), i / 3 + 4 * 5){
-        return i;
-    }
-}
+fact : function integer (n : integer, m : float, a : boolean){
+                        a = 1;
+                }

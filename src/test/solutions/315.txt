@@ -1,3 +1,3 @@
 Program([
-	AssignStmt(Id(result), FuncCall(funct, [Id(passid), IntegerLit(12), BooleanLit(True), StringLit(string gi foo), FloatLit(13.34)]))
+	VarDecl(x, IntegerType, ArrayLit([IntegerLit(1), IntegerLit(2), IntegerLit(3), IntegerLit(4)]))
 ])

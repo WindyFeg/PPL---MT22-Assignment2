@@ -1,3 +1,5 @@
 Program([
-	IfStmt(BinExpr(<=, FuncCall(var, []), IntegerLit(0)), ReturnStmt(BinExpr(+, FuncCall(var, []), IntegerLit(7))))
+	FuncDecl(fact, IntegerType, [Param(n, IntegerType)], None, BlockStmt([]))
+	FuncDecl(fuk, IntegerType, [Param(n, IntegerType)], None, BlockStmt([]))
+	FuncDecl(fik, IntegerType, [Param(n, IntegerType)], None, BlockStmt([]))
 ])

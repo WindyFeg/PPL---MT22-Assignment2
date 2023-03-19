@@ -1,0 +1,7 @@
+main: function void() {
+                while(123123){
+                    if(you==me) print("hell no man");
+                    else if(you==him) print("maybe");
+                    else print("this is ok now");
+                }
+            }

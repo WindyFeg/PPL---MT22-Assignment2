@@ -38,8 +38,8 @@ expression_relat: expression_logic relationalop expression_logic |expression_log
 expression_logic: expression_logic (AND|OR) expression_bina1|expression_bina1;
 expression_bina1: expression_bina1 (PLUS|MINU) expression_bina2|expression_bina2;
 expression_bina2: expression_bina2 (MUTI|DIVI|MODU) expression_unary | expression_unary;
-expression_unary: NOT operand
-| MINU operand
+expression_unary: NOT expression_unary
+| MINU expression_unary
 | indexexpression
 | operand
 ;

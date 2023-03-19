@@ -1,0 +1,1 @@
+main:function string (){a = "hello"; b = 1; c = 0.123; d = f; e = foo(); f = false; return 1_2;}

@@ -784,65 +784,201 @@ return alo[ahe("hsisif"::qi)];
 ])"""
         self.assertTrue(TestAST.test(input, expect, 370))
 
-    # def test_71(self):
-    #     input = """"""
-    #     expect = """"""
-    #     self.assertTrue(TestAST.test(input, expect, 371))
+    def test_71(self):
+        input = """
+            /* main function */
+            mainn: function float () {
+                return 1 + 2 + {} - myPI * foo(a[a[0]] - 10 + swap());
+            }
+        """
+        expect = """Program([
+	FuncDecl(mainn, FloatType, [], None, BlockStmt([ReturnStmt(BinExpr(-, BinExpr(+, BinExpr(+, IntegerLit(1), IntegerLit(2)), ArrayLit([])), BinExpr(*, Id(myPI), FuncCall(foo, [BinExpr(+, BinExpr(-, ArrayCell(a, [ArrayCell(a, [IntegerLit(0)])]), IntegerLit(10)), FuncCall(swap, []))]))))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 371))
 
-    # def test_72(self):
-    #     input = """"""
-    #     expect = """"""
-    #     self.assertTrue(TestAST.test(input, expect, 372))
+    def test_72(self):
+        input = """
+            /* main function */
+            mainn: function float (out n : integer, out i : float) {
+                a = true && false;
+            }
+        """
+        expect = """Program([
+	FuncDecl(mainn, FloatType, [OutParam(n, IntegerType), OutParam(i, FloatType)], None, BlockStmt([AssignStmt(Id(a), BinExpr(&&, BooleanLit(True), BooleanLit(False)))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 372))
 
-    # def test_73(self):
-    #     input = """"""
-    #     expect = """"""
-    #     self.assertTrue(TestAST.test(input, expect, 373))
+    def test_73(self):
+        input = """
+            /* main function */
+            factor : integer = 10.0;
+            mainn: function float (inherit out a : auto) {
+                a = true || false;
+            }
+        """
+        expect = """Program([
+	VarDecl(factor, IntegerType, FloatLit(10.0))
+	FuncDecl(mainn, FloatType, [InheritOutParam(a, AutoType)], None, BlockStmt([AssignStmt(Id(a), BinExpr(||, BooleanLit(True), BooleanLit(False)))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 373))
 
-    # def test_74(self):
-    #     input = """"""
-    #     expect = """"""
-    #     self.assertTrue(TestAST.test(input, expect, 374))
+    def test_74(self):
+        input = """
+            main: function void(){
+                a : auto = 12.128431e-10;
+                var = se % 10 + 10 - 1;
+                a : auto = "string";
+                while(acn > 10 + 1){
+                    s = l + 1;
+                    for ( i = 1, j > 0 ,  c + 1){
+                        return a + fact(12);
+                    }
+                }
+            }
+        """
+        expect = """Program([
+	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, AutoType, FloatLit(1.2128431e-09)), AssignStmt(Id(var), BinExpr(-, BinExpr(+, BinExpr(%, Id(se), IntegerLit(10)), IntegerLit(10)), IntegerLit(1))), VarDecl(a, AutoType, StringLit(string)), WhileStmt(BinExpr(>, Id(acn), BinExpr(+, IntegerLit(10), IntegerLit(1))), BlockStmt([AssignStmt(Id(s), BinExpr(+, Id(l), IntegerLit(1))), ForStmt(AssignStmt(Id(i), IntegerLit(1)), BinExpr(>, Id(j), IntegerLit(0)), BinExpr(+, Id(c), IntegerLit(1)), BlockStmt([ReturnStmt(BinExpr(+, Id(a), FuncCall(fact, [IntegerLit(12)])))]))]))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 374))
 
-    # def test_75(self):
-    #     input = """"""
-    #     expect = """"""
-    #     self.assertTrue(TestAST.test(input, expect, 375))
+    def test_75(self):
+        input = """
+            main: function void(){
+                a : auto = 12.128431e-10;
+                var = se % 10 + 10 - 1;
+                while(acn > 10 + 1){
+                    s = l + 1;
+                    for ( i = 1, j > 0 , c + 1){
+                        return a + fact(12);
+                    }
+                }
+            }
+        """
+        expect = """Program([
+	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, AutoType, FloatLit(1.2128431e-09)), AssignStmt(Id(var), BinExpr(-, BinExpr(+, BinExpr(%, Id(se), IntegerLit(10)), IntegerLit(10)), IntegerLit(1))), WhileStmt(BinExpr(>, Id(acn), BinExpr(+, IntegerLit(10), IntegerLit(1))), BlockStmt([AssignStmt(Id(s), BinExpr(+, Id(l), IntegerLit(1))), ForStmt(AssignStmt(Id(i), IntegerLit(1)), BinExpr(>, Id(j), IntegerLit(0)), BinExpr(+, Id(c), IntegerLit(1)), BlockStmt([ReturnStmt(BinExpr(+, Id(a), FuncCall(fact, [IntegerLit(12)])))]))]))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 375))
 
-    # def test_76(self):
-    #     input = """"""
-    #     expect = """"""
-    #     self.assertTrue(TestAST.test(input, expect, 376))
+    def test_76(self):
+        input = """
+            var : string = "hello world";
+            fact : function auto (alpha : string, delta : integer) {
+                if(a < b) return true;
+                else return 1 + fact(1 + 1 + 2);
+            }
+            main: function void(){
+                do{
+                    a : float = 121.124e+10;
+                    b : float = 1_124_141.012e-10;
+                    c : float = 12_124.81E-10;
+                    return false;
+                }while(n == 0);
+                var = "Lau Dai Tinh Ai" :: var;
+                for(i = a + b, i < n + 1, i + a *b -2 /10) {
+                    return "chac khong co tren tran gian";
+                }
+                test(123, ytx, 5+2+5+5);
+            }
+        """
+        expect = """Program([
+	VarDecl(var, StringType, StringLit(hello world))
+	FuncDecl(fact, AutoType, [Param(alpha, StringType), Param(delta, IntegerType)], None, BlockStmt([IfStmt(BinExpr(<, Id(a), Id(b)), ReturnStmt(BooleanLit(True)), ReturnStmt(BinExpr(+, IntegerLit(1), FuncCall(fact, [BinExpr(+, BinExpr(+, IntegerLit(1), IntegerLit(1)), IntegerLit(2))]))))]))
+	FuncDecl(main, VoidType, [], None, BlockStmt([DoWhileStmt(BinExpr(==, Id(n), IntegerLit(0)), BlockStmt([VarDecl(a, FloatType, FloatLit(1211240000000.0)), VarDecl(b, FloatType, FloatLit(0.0001124141012)), VarDecl(c, FloatType, FloatLit(1.212481e-06)), ReturnStmt(BooleanLit(False))])), AssignStmt(Id(var), BinExpr(::, StringLit(Lau Dai Tinh Ai), Id(var))), ForStmt(AssignStmt(Id(i), BinExpr(+, Id(a), Id(b))), BinExpr(<, Id(i), BinExpr(+, Id(n), IntegerLit(1))), BinExpr(-, BinExpr(+, Id(i), BinExpr(*, Id(a), Id(b))), BinExpr(/, IntegerLit(2), IntegerLit(10))), BlockStmt([ReturnStmt(StringLit(chac khong co tren tran gian))])), CallStmt(test, IntegerLit(123), Id(ytx), BinExpr(+, BinExpr(+, BinExpr(+, IntegerLit(5), IntegerLit(2)), IntegerLit(5)), IntegerLit(5)))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 376))
 
-    # def test_77(self):
-    #     input = """"""
-    #     expect = """"""
-    #     self.assertTrue(TestAST.test(input, expect, 377))
+    def test_77(self):
+        input = """
+            main: function void(){
+                a : auto = 12.128431e-10;
+                var = se % 10 + 10 - 1;
+                while(acn > 10 + 1){
+                    s = l + 1;
+                    for ( i = 1, j > 0 , c + 1){
+                        return a + fact(12);
+                    }
+                }
+            }
+        """
+        expect = """Program([
+	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, AutoType, FloatLit(1.2128431e-09)), AssignStmt(Id(var), BinExpr(-, BinExpr(+, BinExpr(%, Id(se), IntegerLit(10)), IntegerLit(10)), IntegerLit(1))), WhileStmt(BinExpr(>, Id(acn), BinExpr(+, IntegerLit(10), IntegerLit(1))), BlockStmt([AssignStmt(Id(s), BinExpr(+, Id(l), IntegerLit(1))), ForStmt(AssignStmt(Id(i), IntegerLit(1)), BinExpr(>, Id(j), IntegerLit(0)), BinExpr(+, Id(c), IntegerLit(1)), BlockStmt([ReturnStmt(BinExpr(+, Id(a), FuncCall(fact, [IntegerLit(12)])))]))]))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 377))
 
-    # def test_78(self):
-    #     input = """"""
-    #     expect = """"""
-    #     self.assertTrue(TestAST.test(input, expect, 378))
+    def test_78(self):
+        input = """
+            /* main function */
+            ac : float = 12.0e-10;
+            str : auto = "abc";
+            main: function auto () {
+                a = true || false;
+                b : auto;
 
-    # def test_79(self):
-    #     input = """"""
-    #     expect = """"""
-    #     self.assertTrue(TestAST.test(input, expect, 379))
+            }
+        """
+        expect = """Program([
+	VarDecl(ac, FloatType, FloatLit(1.2e-09))
+	VarDecl(str, AutoType, StringLit(abc))
+	FuncDecl(main, AutoType, [], None, BlockStmt([AssignStmt(Id(a), BinExpr(||, BooleanLit(True), BooleanLit(False))), VarDecl(b, AutoType)]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 378))
 
-    # def test_80(self):
-    #     input = """"""
-    #     expect = """"""
-    #     self.assertTrue(TestAST.test(input, expect, 380))
+    def test_79(self):
+        input = """
+            /* main function */
+            ac : float = 12.0e-10;
+            main: function auto () {
+                a = true || false;
+            }
+        """
+        expect = """Program([
+	VarDecl(ac, FloatType, FloatLit(1.2e-09))
+	FuncDecl(main, AutoType, [], None, BlockStmt([AssignStmt(Id(a), BinExpr(||, BooleanLit(True), BooleanLit(False)))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 379))
 
-    # def test_81(self):
-    #     input = """"""
-    #     expect = """"""
-    #     self.assertTrue(TestAST.test(input, expect, 381))
+    def test_80(self):
+        input = """
+            /* main function */
+            main: function auto () {
+                a = 1_23.04E-56;
+            }
+        """
+        expect = """Program([
+	FuncDecl(main, AutoType, [], None, BlockStmt([AssignStmt(Id(a), FloatLit(1.2304e-54))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 380))
 
-    # def test_82(self):
-    #     input = """"""
-    #     expect = """"""
-    #     self.assertTrue(TestAST.test(input, expect, 382))
+    def test_81(self):
+        input = """
+            /* main function */
+            factor : integer = 10.0;
+            main: function auto () {
+                a = "@#$&\t^@$(@(ahs\\"ash\\"%%@&@\\"dsad\\"123&^@@";
+            }
+        """
+        expect = """Program([
+	VarDecl(factor, IntegerType, FloatLit(10.0))
+	FuncDecl(main, AutoType, [], None, BlockStmt([AssignStmt(Id(a), StringLit(@#$&	^@$(@(ahs\\"ash\\"%%@&@\\"dsad\\"123&^@@))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 381))
+
+    def test_82(self):
+        input = """
+            /* main function */
+            ac : float = 12.0e-10;
+            str : auto = "abc";
+            main: function auto () {
+                a = "Chuoi cua ban la: \\"12345\\"";
+
+            }
+        """
+        expect = """Program([
+	VarDecl(ac, FloatType, FloatLit(1.2e-09))
+	VarDecl(str, AutoType, StringLit(abc))
+	FuncDecl(main, AutoType, [], None, BlockStmt([AssignStmt(Id(a), StringLit(Chuoi cua ban la: \\"12345\\"))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 382))
 
     # def test_83(self):
     #     input = """"""
@@ -929,7 +1065,77 @@ return alo[ahe("hsisif"::qi)];
     #     expect = """"""
     #     self.assertTrue(TestAST.test(input, expect, 399))
 
-    # def test_100(self):
-    #     input = """"""
-    #     expect = """"""
-    #     self.assertTrue(TestAST.test(input, expect, 400))
+    def test_100(self):
+        input = """//a
+/*
+*/
+x, y: integer = 65, 88;
+fact: function integer (n: integer) {
+    if (1) if (1) a(); else if (b) if (c) b(); else p(p(3),p());
+    if (n==0) return 1;
+    else return n * fact(n-1);
+    a = ((1 < 2) + (1 <= 2) + (1 > 2)+ (1 != 2)+ (1 == 2)) >= a(a(1));
+
+}
+inc: function void (out n: integer, delta: integer) inherit _____a {
+    n = n + !!!delta * --3 / a[1,2,3,4,5];
+    a = !!!---a();
+    b();
+    a = 1.2 + a + b(n-1,a,a(d-1), a[1,1,1], {}) - c * d::e || {} - -a && !!9 % a / 2 == 2;
+}
+
+sd: integer = true::false;
+if_func: function auto (inherit out n: integer, inherit delta: array[3] of boolean) {
+    if (a) while(a) while(a) while(a) do {} while("a"); else break;
+    for(x=x,x,x) if (a) if (b) continue;
+    //a = b= b= b= b=b= c= d= j[j[1]];
+    delta: array[9,9,9,9] of boolean;
+    a = a && b || !!!v;
+    a = {1,2,3,4} :: 2 * --3;
+    if (a == 0) {if (a == 1) a = 1;} else a = 3;
+
+    if (b == 0) if (b == 1) a = 1; else b = 3;
+    return ---1 + foo(a) * 9;
+    a = !true + false;
+    for (a[1] = 3, a == 9, a < 9) m = n::p;
+
+}
+
+main: function void() {
+    delta: integer = fact(3);
+    inc(x, delta);
+    printInteger(x);
+    m = a + b + v;
+    a, b, c, d: integer = 3::3.3, 4e4, 1.6e9, 10_2_2;
+    a, b, c, d, e: string = 3, 4, true, !10, 4 + 2;
+    a[0,2,3] = s;
+    while (1 == 2) {
+        a = 1 + 3 - 9;
+    }
+    a = b[3];
+    continue;
+    break;
+    {
+        return 1;
+    }
+    do {
+        for (x = 3,x ,x) {
+            for (x = 3, "conga" ,true/false) a[9] = 0;
+        }
+        while (!!a) {
+            while (a) a[3] = b[3];
+        }
+    } while ({1::2,2,3,4} * {1,2} + a[2] + a());    
+}
+
+"""
+        expect = """Program([
+	VarDecl(x, IntegerType, IntegerLit(65))
+	VarDecl(y, IntegerType, IntegerLit(88))
+	FuncDecl(fact, IntegerType, [Param(n, IntegerType)], None, BlockStmt([IfStmt(IntegerLit(1), IfStmt(IntegerLit(1), CallStmt(a, ), IfStmt(Id(b), IfStmt(Id(c), CallStmt(b, ), CallStmt(p, FuncCall(p, [IntegerLit(3)]), FuncCall(p, [])))))), IfStmt(BinExpr(==, Id(n), IntegerLit(0)), ReturnStmt(IntegerLit(1)), ReturnStmt(BinExpr(*, Id(n), FuncCall(fact, [BinExpr(-, Id(n), IntegerLit(1))])))), AssignStmt(Id(a), BinExpr(>=, BinExpr(+, BinExpr(+, BinExpr(+, BinExpr(+, BinExpr(<, IntegerLit(1), IntegerLit(2)), BinExpr(<=, IntegerLit(1), IntegerLit(2))), BinExpr(>, IntegerLit(1), IntegerLit(2))), BinExpr(!=, IntegerLit(1), IntegerLit(2))), BinExpr(==, IntegerLit(1), IntegerLit(2))), FuncCall(a, [FuncCall(a, [IntegerLit(1)])])))]))
+	FuncDecl(inc, VoidType, [OutParam(n, IntegerType), Param(delta, IntegerType)], _____a, BlockStmt([AssignStmt(Id(n), BinExpr(+, Id(n), BinExpr(/, BinExpr(*, UnExpr(!, UnExpr(!, UnExpr(!, Id(delta)))), UnExpr(-, UnExpr(-, IntegerLit(3)))), ArrayCell(a, [IntegerLit(1), IntegerLit(2), IntegerLit(3), IntegerLit(4), IntegerLit(5)])))), AssignStmt(Id(a), UnExpr(!, UnExpr(!, UnExpr(!, UnExpr(-, UnExpr(-, UnExpr(-, FuncCall(a, [])))))))), CallStmt(b, ), AssignStmt(Id(a), BinExpr(::, BinExpr(-, BinExpr(+, BinExpr(+, FloatLit(1.2), Id(a)), FuncCall(b, [BinExpr(-, Id(n), IntegerLit(1)), Id(a), FuncCall(a, [BinExpr(-, Id(d), IntegerLit(1))]), ArrayCell(a, [IntegerLit(1), IntegerLit(1), IntegerLit(1)]), ArrayLit([])])), BinExpr(*, Id(c), Id(d))), BinExpr(==, BinExpr(&&, BinExpr(||, Id(e), BinExpr(-, ArrayLit([]), UnExpr(-, Id(a)))), BinExpr(/, BinExpr(%, UnExpr(!, UnExpr(!, IntegerLit(9))), Id(a)), IntegerLit(2))), IntegerLit(2))))]))
+	VarDecl(sd, IntegerType, BinExpr(::, BooleanLit(True), BooleanLit(False)))
+	FuncDecl(if_func, AutoType, [InheritOutParam(n, IntegerType), InheritParam(delta, ArrayType([3], BooleanType))], None, BlockStmt([IfStmt(Id(a), WhileStmt(Id(a), WhileStmt(Id(a), WhileStmt(Id(a), DoWhileStmt(StringLit(a), BlockStmt([]))))), BreakStmt()), ForStmt(AssignStmt(Id(x), Id(x)), Id(x), Id(x), IfStmt(Id(a), IfStmt(Id(b), ContinueStmt()))), VarDecl(delta, ArrayType([9, 9, 9, 9], BooleanType)), AssignStmt(Id(a), BinExpr(||, BinExpr(&&, Id(a), Id(b)), UnExpr(!, UnExpr(!, UnExpr(!, Id(v)))))), AssignStmt(Id(a), BinExpr(::, ArrayLit([IntegerLit(1), IntegerLit(2), IntegerLit(3), IntegerLit(4)]), BinExpr(*, IntegerLit(2), UnExpr(-, UnExpr(-, IntegerLit(3)))))), IfStmt(BinExpr(==, Id(a), IntegerLit(0)), BlockStmt([IfStmt(BinExpr(==, Id(a), IntegerLit(1)), AssignStmt(Id(a), IntegerLit(1)))]), AssignStmt(Id(a), IntegerLit(3))), IfStmt(BinExpr(==, Id(b), IntegerLit(0)), IfStmt(BinExpr(==, Id(b), IntegerLit(1)), AssignStmt(Id(a), IntegerLit(1)), AssignStmt(Id(b), IntegerLit(3)))), ReturnStmt(BinExpr(+, UnExpr(-, UnExpr(-, UnExpr(-, IntegerLit(1)))), BinExpr(*, FuncCall(foo, [Id(a)]), IntegerLit(9)))), AssignStmt(Id(a), BinExpr(+, UnExpr(!, BooleanLit(True)), BooleanLit(False))), ForStmt(AssignStmt(ArrayCell(a, [IntegerLit(1)]), IntegerLit(3)), BinExpr(==, Id(a), IntegerLit(9)), BinExpr(<, Id(a), IntegerLit(9)), AssignStmt(Id(m), BinExpr(::, Id(n), Id(p))))]))
+	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(delta, IntegerType, FuncCall(fact, [IntegerLit(3)])), CallStmt(inc, Id(x), Id(delta)), CallStmt(printInteger, Id(x)), AssignStmt(Id(m), BinExpr(+, BinExpr(+, Id(a), Id(b)), Id(v))), VarDecl(a, IntegerType, BinExpr(::, IntegerLit(3), FloatLit(3.3))), VarDecl(b, IntegerType, FloatLit(40000.0)), VarDecl(c, IntegerType, FloatLit(1600000000.0)), VarDecl(d, IntegerType, IntegerLit(1022)), VarDecl(a, StringType, IntegerLit(3)), VarDecl(b, StringType, IntegerLit(4)), VarDecl(c, StringType, BooleanLit(True)), VarDecl(d, StringType, UnExpr(!, IntegerLit(10))), VarDecl(e, StringType, BinExpr(+, IntegerLit(4), IntegerLit(2))), AssignStmt(ArrayCell(a, [IntegerLit(0), IntegerLit(2), IntegerLit(3)]), Id(s)), WhileStmt(BinExpr(==, IntegerLit(1), IntegerLit(2)), BlockStmt([AssignStmt(Id(a), BinExpr(-, BinExpr(+, IntegerLit(1), IntegerLit(3)), IntegerLit(9)))])), AssignStmt(Id(a), ArrayCell(b, [IntegerLit(3)])), ContinueStmt(), BreakStmt(), BlockStmt([ReturnStmt(IntegerLit(1))]), DoWhileStmt(BinExpr(+, BinExpr(+, BinExpr(*, ArrayLit([BinExpr(::, IntegerLit(1), IntegerLit(2)), IntegerLit(2), IntegerLit(3), IntegerLit(4)]), ArrayLit([IntegerLit(1), IntegerLit(2)])), ArrayCell(a, [IntegerLit(2)])), FuncCall(a, [])), BlockStmt([ForStmt(AssignStmt(Id(x), IntegerLit(3)), Id(x), Id(x), BlockStmt([ForStmt(AssignStmt(Id(x), IntegerLit(3)), StringLit(conga), BinExpr(/, BooleanLit(True), BooleanLit(False)), AssignStmt(ArrayCell(a, [IntegerLit(9)]), IntegerLit(0)))])), WhileStmt(UnExpr(!, UnExpr(!, Id(a))), BlockStmt([WhileStmt(Id(a), AssignStmt(ArrayCell(a, [IntegerLit(3)]), ArrayCell(b, [IntegerLit(3)])))]))]))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 400))

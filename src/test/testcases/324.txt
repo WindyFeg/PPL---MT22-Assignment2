@@ -1,1 +1,1 @@
-SortArray: function array[3] of integer() {}
+fact : function integer (n : integer, m : float, a : boolean){}

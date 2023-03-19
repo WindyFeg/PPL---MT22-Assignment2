@@ -1,11 +1,1 @@
-
-    testfunc: function void (inherit out a: array[2, 3] of boolean) inherit foo {
-        if(a[a[1, 2], 2] == "true") {
-            {
-                {
-                    a[a[a[1, 2], 3], 2] = "false";
-                }
-            }
-        }
-            
-    }
+main:function string (){return 1+!3;}

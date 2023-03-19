@@ -1,0 +1,3 @@
+Program([
+	VarDecl(delta123, BooleanType, BooleanLit(True))
+])
